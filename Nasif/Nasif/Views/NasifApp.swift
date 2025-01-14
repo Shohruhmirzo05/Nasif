@@ -16,6 +16,7 @@ struct NasifApp: App {
         WindowGroup {
             UserDetailsView()
                 .environmentObject(languageManager)
+//            ApartmentSearchView()
         }
     }
 }

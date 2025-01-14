@@ -16,32 +16,36 @@ struct PhoneInputView: View {
             VStack(alignment: .center, spacing: 36) {
                 Text("Phone Number")
                     .font(.abel(size: 24))
+                HStack {
+                    Image(.arabicNumberIcon)
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .padding(.leading)
+                        .overlay {
+                            Rectangle()
+                                .fill(.gray)
+                                .frame(width: 1)
+                                .rotationEffect(.degrees(180))
+                                .padding(.leading, 88)
+                        }
                     HStack {
-                        Image(.arabicNumberIcon)
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .padding(.leading)
-                            .overlay {
-                                Rectangle()
-                                    .fill(.gray)
-                                    .frame(width: 1)
-                                    .rotationEffect(.degrees(180))
-                                    .padding(.leading, 88)
-                            }
+                        Text("+966")
                         TextField("", text: $phoneNumber)
                     }
-                    .padding(.vertical, 6)
-                    .padding(.horizontal, 8)
+                    .font(.abel(size: 16))
+                    .padding(.leading)
+                }
+                .padding(.vertical, 6)
+                .padding(.horizontal, 8)
+                
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background {
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(lineWidth: 1)
+                        .foregroundStyle(.gray)
                     
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background {
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(lineWidth: 1)
-                            .foregroundStyle(.gray)
-                        
-                    }
-                    
-                    .padding(.horizontal, 36)
+                }
+                .padding(.horizontal, 36)
                 MainButton("Continue") {
                     
                 }

@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct CustomTabPickerView: View {
-    @State private var selection: String = "All"
     @State private var width: CGFloat = 20
     @Namespace var namespace
+    
+    @Binding var selectedTab: String
     
     let tabs: [ String ]
     
@@ -26,7 +27,7 @@ struct CustomTabPickerView: View {
                 TabItemView(tab: tab)
             }
         }
-        .animation(.spring(response: 0.5, dampingFraction: 0.7, blendDuration: 0.3), value: selection)
+        .animation(.spring(response: 0.5, dampingFraction: 0.7, blendDuration: 0.3), value: selectedTab)
         .padding(.vertical, 6)
         .background {
             RoundedRectangle(cornerRadius: 30)
@@ -38,12 +39,12 @@ struct CustomTabPickerView: View {
     @ViewBuilder func TabItemView(tab: String) -> some View {
         Text(tab)
             .font(.abel(size: 14))
-            .foregroundColor(selection == tab ? .black : .gray)
+            .foregroundColor(selectedTab == tab ? .black : .gray)
             .padding(.vertical, 6)
             .frame(maxWidth: 32, maxHeight: 32)
             .padding(.horizontal, 8)
             .background {
-                if selection == tab {
+                if selectedTab == tab {
                     RoundedRectangle(cornerRadius: 20)
                         .fill(Color.white)
                         .matchedGeometryEffect(id: "tab_background", in: namespace)
@@ -55,13 +56,14 @@ struct CustomTabPickerView: View {
             }
             .onTapGesture {
                 withAnimation {
-                    selection = tab
+                    selectedTab = tab
+                    
                 }
             }
     }
 }
 
 #Preview {
-    CustomTabPickerView( tabs: ["All", "Land", "Villa", "Apart.", "Floor", "Build.", "Other"]
+    CustomTabPickerView( selectedTab: .constant("All"), tabs: ["All", "Land", "Villa", "Apart.", "Floor", "Build.", "Other"]
 )
 }
