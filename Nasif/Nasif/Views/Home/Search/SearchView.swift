@@ -106,7 +106,7 @@ struct ApartmentSearchView: View {
                 }
                 .foregroundColor(.black)
             VStack(alignment: .leading, spacing: 8) {
-                Text("Neighbourood")
+                Text("Neighborhood")
                     .font(.abel(size: 15))
                 TextField("everywhere", text: $searchNeighbourhood)
                     .font(.abel(size: 15))

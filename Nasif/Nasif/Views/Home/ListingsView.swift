@@ -30,6 +30,8 @@ struct ListingsView: View {
         Apartment(title: "Land for sale", location: "Riyadh, Al-Naseem district", price: 100, image: "", sizeOfApartment: 0, bathrooms: 0, bedrooms: 0, status: .sold, type: "Land"),
     ]
     
+//    @LayoutDirection var layoutDirection = .rightToLeft
+    
     var filteredListings: [Apartment] {
         if selectedTab == "All" {
             return listings

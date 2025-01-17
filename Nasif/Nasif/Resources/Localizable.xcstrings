@@ -1,0 +1,334 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%lld" : {
+
+    },
+    "+966" : {
+
+    },
+    "00:%@" : {
+
+    },
+    "Area m2" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المساحة م2"
+          }
+        }
+      }
+    },
+    "below" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أقل"
+          }
+        }
+      }
+    },
+    "City" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مدينة"
+          }
+        }
+      }
+    },
+    "Continue" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يكمل"
+          }
+        }
+      }
+    },
+    "deals" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصفقات"
+          }
+        }
+      }
+    },
+    "Deals" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "العروض"
+          }
+        }
+      }
+    },
+    "Deals View" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض الصفقات"
+          }
+        }
+      }
+    },
+    "Display Number" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رقم العرض"
+          }
+        }
+      }
+    },
+    "everywhere" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "في كل مكان"
+          }
+        }
+      }
+    },
+    "higher than" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أعلى من"
+          }
+        }
+      }
+    },
+    "I did not receive the verification code" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لم أتلق رمز التحقق"
+          }
+        }
+      }
+    },
+    "Interface" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "واجهة"
+          }
+        }
+      }
+    },
+    "listings" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "القوائم"
+          }
+        }
+      }
+    },
+    "Listings" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "القوائم"
+          }
+        }
+      }
+    },
+    "Message View" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض الرسالة"
+          }
+        }
+      }
+    },
+    "messages" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رسائل"
+          }
+        }
+      }
+    },
+    "Messages" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رسائل"
+          }
+        }
+      }
+    },
+    "Neighborhood" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حيّ"
+          }
+        }
+      }
+    },
+    "NickName" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كنية"
+          }
+        }
+      }
+    },
+    "Number of streets" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدد الشوارع"
+          }
+        }
+      }
+    },
+    "Phone Number" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رقم التليفون"
+          }
+        }
+      }
+    },
+    "Price" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سعر"
+          }
+        }
+      }
+    },
+    "profile" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حساب تعريفي"
+          }
+        }
+      }
+    },
+    "Profile" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حساب تعريفي"
+          }
+        }
+      }
+    },
+    "Property Type" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نوع العقار"
+          }
+        }
+      }
+    },
+    "Riyal" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ريال"
+          }
+        }
+      }
+    },
+    "Save" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يحفظ"
+          }
+        }
+      }
+    },
+    "Search" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يبحث"
+          }
+        }
+      }
+    },
+    "Switch to Arabic" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التبديل إلى اللغة العربية"
+          }
+        }
+      }
+    },
+    "Switch to English" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التبديل إلى اللغة الإنجليزية"
+          }
+        }
+      }
+    },
+    "Welcome to the App" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مرحبا بكم في التطبيق"
+          }
+        }
+      }
+    },
+    "x" : {
+
+    },
+    "مرحبًا بك في التطبيق" : {
+
+    }
+  },
+  "version" : "1.0"
+}

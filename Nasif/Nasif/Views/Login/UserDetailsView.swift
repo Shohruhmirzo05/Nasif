@@ -49,7 +49,7 @@ struct UserDetailsView: View {
         }
         .onChange(of: selectedImage) { newValue in
             if let newValue {
-                print(newValue.pngData()?.count)
+                print(newValue.pngData()?.count ?? [])
             }
         }
         .padding(.horizontal, 36)
