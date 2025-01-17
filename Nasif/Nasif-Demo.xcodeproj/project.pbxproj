@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8CDCEA122D2F8E690005CDF6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8CDCEA112D2F8E690005CDF6 /* Kingfisher */; };
+		8CA99CF22D3A30880033BA29 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8CA99CF12D3A30880033BA29 /* Kingfisher */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8CC4F2AD2D2E5CAD00F05172 /* Nasif.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nasif.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC4F2AD2D2E5CAD00F05172 /* Nasif-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nasif-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		8CDCEA2F2D2F912F0005CDF6 /* Exceptions for "Nasif" folder in "Nasif" target */ = {
+		8CDCEA2F2D2F912F0005CDF6 /* Exceptions for "Nasif" folder in "Nasif-Demo" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = 8CC4F2AC2D2E5CAD00F05172 /* Nasif */;
+			target = 8CC4F2AC2D2E5CAD00F05172 /* Nasif-Demo */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -28,7 +28,7 @@
 		8CC4F2AF2D2E5CAD00F05172 /* Nasif */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				8CDCEA2F2D2F912F0005CDF6 /* Exceptions for "Nasif" folder in "Nasif" target */,
+				8CDCEA2F2D2F912F0005CDF6 /* Exceptions for "Nasif" folder in "Nasif-Demo" target */,
 			);
 			path = Nasif;
 			sourceTree = "<group>";
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8CDCEA122D2F8E690005CDF6 /* Kingfisher in Frameworks */,
+				8CA99CF22D3A30880033BA29 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 		8CC4F2AE2D2E5CAD00F05172 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8CC4F2AD2D2E5CAD00F05172 /* Nasif.app */,
+				8CC4F2AD2D2E5CAD00F05172 /* Nasif-Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -66,9 +66,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8CC4F2AC2D2E5CAD00F05172 /* Nasif */ = {
+		8CC4F2AC2D2E5CAD00F05172 /* Nasif-Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8CC4F2BB2D2E5CAD00F05172 /* Build configuration list for PBXNativeTarget "Nasif" */;
+			buildConfigurationList = 8CC4F2BB2D2E5CAD00F05172 /* Build configuration list for PBXNativeTarget "Nasif-Demo" */;
 			buildPhases = (
 				8CC4F2A92D2E5CAD00F05172 /* Sources */,
 				8CC4F2AA2D2E5CAD00F05172 /* Frameworks */,
@@ -81,12 +81,12 @@
 			fileSystemSynchronizedGroups = (
 				8CC4F2AF2D2E5CAD00F05172 /* Nasif */,
 			);
-			name = Nasif;
+			name = "Nasif-Demo";
 			packageProductDependencies = (
-				8CDCEA112D2F8E690005CDF6 /* Kingfisher */,
+				8CA99CF12D3A30880033BA29 /* Kingfisher */,
 			);
 			productName = Nasif;
-			productReference = 8CC4F2AD2D2E5CAD00F05172 /* Nasif.app */;
+			productReference = 8CC4F2AD2D2E5CAD00F05172 /* Nasif-Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -104,7 +104,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8CC4F2A82D2E5CAD00F05172 /* Build configuration list for PBXProject "Nasif" */;
+			buildConfigurationList = 8CC4F2A82D2E5CAD00F05172 /* Build configuration list for PBXProject "Nasif-Demo" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -114,15 +114,15 @@
 			mainGroup = 8CC4F2A42D2E5CAD00F05172;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				8CDCEA102D2F8E690005CDF6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				8CDCEED22D34CE6E0005CDF6 /* XCRemoteSwiftPackageReference "maps-ios-swiftui" */,
+				8CA99CF02D3A30880033BA29 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8CC4F2AE2D2E5CAD00F05172 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8CC4F2AC2D2E5CAD00F05172 /* Nasif */,
+				8CC4F2AC2D2E5CAD00F05172 /* Nasif-Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -344,7 +344,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8CC4F2A82D2E5CAD00F05172 /* Build configuration list for PBXProject "Nasif" */ = {
+		8CC4F2A82D2E5CAD00F05172 /* Build configuration list for PBXProject "Nasif-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8CC4F2B92D2E5CAD00F05172 /* Debug */,
@@ -353,7 +353,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8CC4F2BB2D2E5CAD00F05172 /* Build configuration list for PBXNativeTarget "Nasif" */ = {
+		8CC4F2BB2D2E5CAD00F05172 /* Build configuration list for PBXNativeTarget "Nasif-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8CC4F2BC2D2E5CAD00F05172 /* Debug */,
@@ -365,7 +365,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		8CDCEA102D2F8E690005CDF6 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+		8CA99CF02D3A30880033BA29 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -384,9 +384,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		8CDCEA112D2F8E690005CDF6 /* Kingfisher */ = {
+		8CA99CF12D3A30880033BA29 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 8CDCEA102D2F8E690005CDF6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			package = 8CA99CF02D3A30880033BA29 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
