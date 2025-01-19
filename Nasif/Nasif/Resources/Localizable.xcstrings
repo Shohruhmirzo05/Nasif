@@ -7,6 +7,9 @@
     "%lld" : {
 
     },
+    "+92 312 1234567" : {
+
+    },
     "+966" : {
 
     },
@@ -32,6 +35,9 @@
           }
         }
       }
+    },
+    "Choose language" : {
+
     },
     "City" : {
       "localizations" : {
@@ -153,6 +159,9 @@
         }
       }
     },
+    "Log out" : {
+
+    },
     "Message View" : {
       "localizations" : {
         "ar" : {
@@ -183,6 +192,9 @@
         }
       }
     },
+    "Muhammed Ahmed" : {
+
+    },
     "Neighborhood" : {
       "localizations" : {
         "ar" : {
@@ -212,6 +224,9 @@
           }
         }
       }
+    },
+    "Offers" : {
+
     },
     "Phone Number" : {
       "localizations" : {
@@ -293,7 +308,11 @@
         }
       }
     },
+    "Show language selection" : {
+
+    },
     "Switch to Arabic" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -304,6 +323,7 @@
       }
     },
     "Switch to English" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -314,6 +334,7 @@
       }
     },
     "Welcome to the App" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -324,9 +345,6 @@
       }
     },
     "x" : {
-
-    },
-    "مرحبًا بك في التطبيق" : {
 
     }
   },

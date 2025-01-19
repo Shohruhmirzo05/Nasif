@@ -14,6 +14,7 @@ struct Attribute: Identifiable {
 }
 
 struct ApartmentListingCard: View {
+    @Environment(\.layoutDirection) var layoutDirection: LayoutDirection
     
     var title: String
     var location: String
@@ -34,7 +35,7 @@ struct ApartmentListingCard: View {
             HStack {
                 ImageSection()
                 Spacer()
-                VStack(alignment: .trailing, spacing: 16) {
+                VStack(alignment: layoutDirection == .leftToRight ? .trailing : .leading, spacing: 16) {
                     Text(title)
                         .font(.abel(size: 15))
                     Text(location)
@@ -58,7 +59,7 @@ struct ApartmentListingCard: View {
             }
             .padding(12)
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(maxWidth: .infinity, alignment: layoutDirection == .leftToRight ? .leading : .trailing)
         .background {
             Color.gray.opacity(0.2)
                 .clipShape(RoundedRectangle(cornerRadius: 10))

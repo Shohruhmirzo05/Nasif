@@ -30,8 +30,6 @@ struct ListingsView: View {
         Apartment(title: "Land for sale", location: "Riyadh, Al-Naseem district", price: 100, image: "", sizeOfApartment: 0, bathrooms: 0, bedrooms: 0, status: .sold, type: "Land"),
     ]
     
-//    @LayoutDirection var layoutDirection = .rightToLeft
-    
     var filteredListings: [Apartment] {
         if selectedTab == "All" {
             return listings
@@ -44,29 +42,36 @@ struct ListingsView: View {
         selectedTab = tab
     }
     
+    @State var showMapView: Bool = false
+    
     var body: some View {
         NavigationView {
+           
             ScrollView {
-                VStack {
-                    ForEach(filteredListings, id: \.title) { listing in
-                        ApartmentListingCard(
-                            title: listing.title,
-                            location: listing.location,
-                            price: listing.price,
-                            image: listing.image,
-                            sizeOfApartment: listing.sizeOfApartment,
-                            bathrooms: listing.bathrooms,
-                            bedrooms: listing.bedrooms,
-                            status: listing.status,
-                            attributes: [
-                                Attribute(type: "Bedroom", value: "4"),
-                                Attribute(type: "Bathroom", value: "8"),
-                                Attribute(type: "Price", value: "$30,000")
-                            ]
-                        )
+                if showMapView {
+                    GoogleMapView()
+                } else {
+                    VStack {
+                        ForEach(filteredListings, id: \.title) { listing in
+                            ApartmentListingCard(
+                                title: listing.title,
+                                location: listing.location,
+                                price: listing.price,
+                                image: listing.image,
+                                sizeOfApartment: listing.sizeOfApartment,
+                                bathrooms: listing.bathrooms,
+                                bedrooms: listing.bedrooms,
+                                status: listing.status,
+                                attributes: [
+                                    Attribute(type: "Bedroom", value: "4"),
+                                    Attribute(type: "Bathroom", value: "8"),
+                                    Attribute(type: "Price", value: "$30,000")
+                                ]
+                            )
+                        }
                     }
+                    .padding()
                 }
-                .padding()
             }
             .safeAreaInset(edge: .bottom, content: MapSwitcher)
             .safeAreaInset(edge: .top) {
@@ -77,6 +82,7 @@ struct ListingsView: View {
                     .animation(.easeInOut, value: selectedTab)
                     .transition(.move(edge: .leading))
             }
+            
         }
     }
     
@@ -84,7 +90,7 @@ struct ListingsView: View {
         HStack {
             Spacer()
             Button {
-                
+                showMapView.toggle()
             } label: {
                 Image(systemName: "map")
                     .resizable()
@@ -102,3 +108,5 @@ struct ListingsView: View {
 #Preview {
     ListingsView()
 }
+
+

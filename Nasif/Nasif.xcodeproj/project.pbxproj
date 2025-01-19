@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8C6D5C002D3A31EC00BDF131 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6D5BFF2D3A31EC00BDF131 /* Kingfisher */; };
+		8CB6265F2D3C9C7600366B22 /* GoogleMapsUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB6265E2D3C9C7600366B22 /* GoogleMapsUtils */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CB6265F2D3C9C7600366B22 /* GoogleMapsUtils in Frameworks */,
 				8C6D5C002D3A31EC00BDF131 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -84,6 +86,7 @@
 			name = Nasif;
 			packageProductDependencies = (
 				8C6D5BFF2D3A31EC00BDF131 /* Kingfisher */,
+				8CB6265E2D3C9C7600366B22 /* GoogleMapsUtils */,
 			);
 			productName = Nasif;
 			productReference = 8C6D5BED2D3A31A600BDF131 /* Nasif.app */;
@@ -116,6 +119,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				8C6D5BFE2D3A31EC00BDF131 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				8CB6265D2D3C9C7600366B22 /* XCRemoteSwiftPackageReference "google-maps-ios-utils" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8C6D5BEE2D3A31A600BDF131 /* Products */;
@@ -282,12 +286,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Nasif/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nasif;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show you nearby places.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location to show you nearby places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -318,12 +326,16 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Nasif/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nasif;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show you nearby places.";
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location to show you nearby places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -373,6 +385,14 @@
 				minimumVersion = 8.1.3;
 			};
 		};
+		8CB6265D2D3C9C7600366B22 /* XCRemoteSwiftPackageReference "google-maps-ios-utils" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googlemaps/google-maps-ios-utils";
+			requirement = {
+				kind = exactVersion;
+				version = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -380,6 +400,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8C6D5BFE2D3A31EC00BDF131 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		8CB6265E2D3C9C7600366B22 /* GoogleMapsUtils */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8CB6265D2D3C9C7600366B22 /* XCRemoteSwiftPackageReference "google-maps-ios-utils" */;
+			productName = GoogleMapsUtils;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
