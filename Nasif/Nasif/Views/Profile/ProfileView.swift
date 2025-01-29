@@ -40,6 +40,30 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
+
+    
+//    func changeLanguage(language: String, completion: @escaping () -> ()) {
+//        guard language != appLanguage else {
+//            return
+//        }
+//        DispatchQueue.main.async {
+//            self.currentState = .loading
+//        }
+//        
+//        DispatchQueue.global(qos: .background).async {
+//            DispatchQueue.main.async {
+//                self.appLanguage = language
+//                self.selectedLanguage = language
+//                self.currentState = .none
+//                if language == "ar" { // Assuming Arabic
+//                    self.layoutDirection = .rightToLeft
+//                } else {
+//                    self.layoutDirection = .leftToRight
+//                }
+//                completion()
+//            }
+//        }
+//    }
     
     enum ViewState: Equatable {
         case loading
@@ -167,7 +191,7 @@ struct ProfileView: View {
             }
             .sheet(isPresented: $showLanguagePicker) {
                 LanguagePickerView()
-                    .presentationDetents([.fraction(0.3)])
+//                    .presentationDetents([.fraction(0.3)])
                     .apply {
                         if #available(iOS 16.4, *) {
                             $0
@@ -177,7 +201,7 @@ struct ProfileView: View {
                             $0
                         }
                     }
-                    .presentationDragIndicator(.visible)
+//                    .presentationDragIndicator(.visible)
             }
             .environment(\.layoutDirection, viewModel.layoutDirection ?? LayoutDirection.leftToRight)
         }

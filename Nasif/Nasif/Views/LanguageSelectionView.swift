@@ -28,7 +28,7 @@ struct LanguagePickerView: View {
                         .overlay {
                             Image(systemName: "xmark")
                                 .tint(.black)
-                                .fontWeight(.semibold)
+//                                .fontWeight(.semibold)
                         }
                 }
             }

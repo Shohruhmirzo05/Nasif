@@ -7,28 +7,27 @@
 
 import SwiftUI
 
-extension String {
-    func localizedFormat(identifier: String? = nil, table: String? = "Localizable", components: CVarArg...) -> String {
-        String(format: self.localizedString(identifier: identifier, table: table), components)
-    }
-    
-    func localizedString(identifier: String? = nil, table: String? = "Localizable") -> String {
-        let currentIdentifier = UserDefaults.standard.string(forKey: AppStorageKeys.appLanguage) ?? Constants.defaultLanguage
-        let currentLocale = Locale(identifier: identifier ?? currentIdentifier)
-        if #available(iOS 16, *) {
-            guard let languageCode = currentLocale.language.languageCode?.identifier,
-                  let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
-                  let bundle = Bundle(path: path) else {
-                return self
-                
-            }
-            return NSLocalizedString(self, tableName: table, bundle: bundle, comment: "")
-        } else {
-           
-        }
-       
-    }
-}
+//extension String {
+//    func localizedFormat(identifier: String? = nil, table: String? = "Localizable", components: CVarArg...) -> String {
+//        String(format: self.localizedString(identifier: identifier, table: table), components)
+//    }
+//    
+//    func localizedString(identifier: String? = nil, table: String? = "Localizable") -> String {
+//        let currentIdentifier = UserDefaults.standard.string(forKey: AppStorageKeys.appLanguage) ?? Constants.defaultLanguage
+//        let currentLocale = Locale(identifier: identifier ?? currentIdentifier)
+//        if #available(iOS 16, *) {
+//            guard let languageCode = currentLocale.language.languageCode?.identifier,
+//                  let path = Bundle.main.path(forResource: languageCode, ofType: "lproj"),
+//                  let bundle = Bundle(path: path) else {
+//                return self
+//                
+//            }
+//            return NSLocalizedString(self, tableName: table, bundle: bundle, comment: "")
+//        } else {
+//           
+//        }
+//    }
+//}
 
 class Constants {
     

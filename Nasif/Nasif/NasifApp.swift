@@ -16,10 +16,10 @@ struct NasifApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            TabbarView()
-            GoogleMapView()
-//                .environment(\.locale, Locale(identifier: appLanguage))
-//                .environmentObject(viewModel)
+            TabbarView()
+//            GoogleMapView()
+                .environment(\.locale, Locale(identifier: appLanguage))
+                .environmentObject(viewModel)
         }
     }
 }
