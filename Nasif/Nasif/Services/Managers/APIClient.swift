@@ -25,6 +25,17 @@ class APIClient {
         case getListings
         case getlistingById(listingID: Int)
         
+        case getAllMessages
+        case getMessagesByGroupId(groupId: Int)
+        case getMessagesById(messageId: Int)
+        case getMessagesByUserId(userId: Int)
+                
+        case getUserByNickname(nickName: String)
+        
+        case sendNumberForLogin(phoneNumber: String)
+        case verifyOTP(phoneNumber: String, otpCode: String)
+        case signUp(phoneNumber: String, nickName: String, profilePictureUrl: String)
+        
         fileprivate var url: URL {
             let baseURL = URL(string: AppEnvironment.current.baseUrl)!
             
@@ -35,14 +46,45 @@ class APIClient {
                 components.path.append("listings.php")
             case .getlistingById(let listingID):
                 components.path.append("listings.php/\(listingID)")
+                
+                
+            case .getAllMessages:
+                components.path.append("message.php")
+                
+            case .getMessagesByGroupId(let groupId):
+                components.path.append("message.php")
+                
+                components.queryItems = [
+                    URLQueryItem(name: "group_id", value: "\(groupId)")
+                ]
+                
+            case .getMessagesById(let messageId):
+                components.path.append("message.php")
+                components.queryItems = [
+                    URLQueryItem(name: "message_id", value: "\(messageId)")
+                ]
+            case .getMessagesByUserId(let userId):
+                    components.path.append("message.php")
+                    components.queryItems = [
+                        URLQueryItem(name: "user_id", value: "\(userId)")
+                    ]
+                
+            case .getUserByNickname(let nickName):
+                components.path.append("user.php/\(nickName)")
+                
+            case .sendNumberForLogin:
+                components.path.append("auth/login.php")
+            case .verifyOTP:
+                components.path.append("auth/verify.php")
+            case .signUp:
+                components.path.append("auth/signup.php")
             }
-            
             return components.url!
         }
         
         fileprivate var method: HTTPMethod {
             switch self {
-            case .getListings, .getlistingById:
+            case .getListings, .getlistingById, .getAllMessages, .getMessagesByGroupId, .getMessagesById, .getMessagesByUserId, .getUserByNickname:
                 return .get
             default:
                 return .post
@@ -59,6 +101,21 @@ class APIClient {
         ]
         var requestBody: [String: Any?] = [:]
         switch endpoint {
+        case .sendNumberForLogin(let phoneNumber):
+            requestBody = [
+                "phone" : phoneNumber
+            ]
+        case .verifyOTP(let phoneNumber, let otpCode):
+            requestBody = [
+                "phone" : phoneNumber,
+                "otp" : otpCode
+            ]
+        case .signUp(let phoneNumber, let nickName, let profilePictureUrl):
+            requestBody = [
+                "mobile_number" : phoneNumber,
+                "nickname" : nickName,
+                "profile_picture_url" : profilePictureUrl
+            ]
         default:
             break
         }
@@ -67,7 +124,6 @@ class APIClient {
                 let jsonData = try JSONSerialization.data(withJSONObject: requestBody, options: .fragmentsAllowed)
                 request.httpBody = jsonData
                 
-                // Debugging: Print JSON body as a string
                 if let jsonString = String(data: jsonData, encoding: .utf8) {
                     print("Request JSON Body: \(jsonString)")
                 }

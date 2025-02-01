@@ -51,8 +51,6 @@ struct PhoneInputView: View {
                 }
                 .padding(.top, 36)
                 .padding(.horizontal, 24)
-                
-                
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }

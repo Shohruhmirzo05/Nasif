@@ -14,7 +14,7 @@ struct OTPView: View {
     @FocusState var focusedField: Int?
     @FocusState var focused: Bool
     
-    @StateObject var viewModel = RegistrationViewModel()
+    @StateObject var viewModel = AuthViewModel()
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
@@ -97,4 +97,6 @@ struct OTPView: View {
 #Preview {
     OTPView()
 }
-
+//
+//UserDefaults.standard.customerId = customerId
+//print("Login successful. Data stored in UserDefaults.")

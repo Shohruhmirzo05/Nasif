@@ -20,9 +20,6 @@
     "%lld" : {
 
     },
-    "+92 312 1234567" : {
-
-    },
     "+966" : {
 
     },
@@ -128,6 +125,9 @@
           }
         }
       }
+    },
+    "Communication" : {
+
     },
     "Continue" : {
       "localizations" : {
@@ -300,6 +300,7 @@
       }
     },
     "Message View" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -328,9 +329,6 @@
           }
         }
       }
-    },
-    "Muhammed Ahmed" : {
-
     },
     "Neighborhood" : {
       "localizations" : {
@@ -501,6 +499,9 @@
           }
         }
       }
+    },
+    "Sender ID: %lld" : {
+
     },
     "Services:" : {
       "localizations" : {

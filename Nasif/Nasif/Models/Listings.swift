@@ -113,17 +113,4 @@ struct Listing: Codable, Identifiable {
     static let mock = Listing(id: 1, userID: 1, realEstateType: "", title: "", price: "", totalSquareMeters: 1, realEstateAge: 1, streetWidth: 1, facing: "", numberOfStreets: 1, city: "", neighborhood: "", latitude: "", longitude: "", mainImageURL: "", additionalImagesUrls: "", additionalVideoURL: "", advertiserDescription: "", schemeNumber: "", partNumber: "", valLicenseNumber: "", advertisingLicenseNumber: "", description: "", availability: 1, villaType: "", intendedUse: "", floorNumber: 1, availableFloors: 1, bedroomCount: 1, bathroomCount: 1, livingRoomCount: 1, seatingAreaCount: 1, availableParking: 1, services: "", extraFeatures: "", createdAt: "")
 }
 
-struct Message: Codable {
-    let messageID, senderID, recipientID: Int?
-    let groupID: String?
-    let messageContent, createdAt: String
 
-    enum CodingKeys: String, CodingKey {
-        case messageID = "message_id"
-        case senderID = "sender_id"
-        case recipientID = "recipient_id"
-        case groupID = "group_id"
-        case messageContent = "message_content"
-        case createdAt = "created_at"
-    }
-}

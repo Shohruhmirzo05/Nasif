@@ -7,15 +7,21 @@
 
 import SwiftUI
 
+@MainActor
 class ProfileViewModel: ObservableObject {
     
     @Published var selectedLanguage: String?
     @Published var currentState: ViewState = .none
     @AppStorage(AppStorageKeys.appLanguage) var appLanguage = Constants.defaultLanguage
     @Published var layoutDirection = LayoutDirection(.leftToRight)
+    @Published var user: User?
     
-    init() {
+    let nickName: String? = {
+        return UserDefaults.standard.string(forKey: "nickname")
+    }()
         
+    init() {
+        getUserByNickName(nickName: nickName ?? "N/A")
     }
     
     func changeLanguage(language: String, completion: @escaping () -> ()) {
@@ -31,7 +37,7 @@ class ProfileViewModel: ObservableObject {
                 self.appLanguage = language
                 self.selectedLanguage = language
                 self.currentState = .none
-                if language == "ar" { // Assuming Arabic
+                if language == "ar" {
                     self.layoutDirection = .rightToLeft
                 } else {
                     self.layoutDirection = .leftToRight
@@ -40,30 +46,25 @@ class ProfileViewModel: ObservableObject {
             }
         }
     }
-
     
-//    func changeLanguage(language: String, completion: @escaping () -> ()) {
-//        guard language != appLanguage else {
-//            return
-//        }
-//        DispatchQueue.main.async {
-//            self.currentState = .loading
-//        }
-//        
-//        DispatchQueue.global(qos: .background).async {
-//            DispatchQueue.main.async {
-//                self.appLanguage = language
-//                self.selectedLanguage = language
-//                self.currentState = .none
-//                if language == "ar" { // Assuming Arabic
-//                    self.layoutDirection = .rightToLeft
-//                } else {
-//                    self.layoutDirection = .leftToRight
-//                }
-//                completion()
-//            }
-//        }
-//    }
+    func getUserByNickName(nickName: String) {
+        currentState = .loading
+        Task {
+            do {
+                let response = try await APIClient.shared.callWithStatusCode(.getUserByNickname(nickName: nickName), decodeTo: User.self)
+                DispatchQueue.main.async {
+                    self.user = response.data
+                    self.currentState = .none
+                    UserDefaults.standard.set(self.user?.userID, forKey: "userId")
+                }
+            } catch {
+                print(error)
+                print(error.localizedDescription)
+                print("error in fetching user by nickname")
+                currentState = .error(description: error.localizedDescription)
+            }
+        }
+    }
     
     enum ViewState: Equatable {
         case loading
@@ -93,18 +94,24 @@ struct ProfileView: View {
                             Image(uiImage: selectedImage)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(width: 167, height: 134)
+                                .frame(width: 80, height: 80)
                                 .clipShape(Circle())
                         } else {
-                            Image(.imageSelection)
-                                .resizable()
-                                .frame(width: 167, height: 134)
-                                .foregroundColor(.gray)
+                            if let image = viewModel.user?.profilePictureURL {
+                                CachedImage(imageUrl: image)
+                                    .frame(width: 80, height: 80)
+                                    .clipShape(Circle())
+                            } else {
+                                Image(.imageSelection)
+                                    .resizable()
+                                    .frame(width: 80, height: 80)
+                                    .foregroundColor(.gray)
+                            }
                         }
                     }
                     VStack {
-                        Text("Muhammed Ahmed")
-                        Text("+92 312 1234567")
+                        Text(viewModel.user?.nickname ?? "N/A")
+                        Text(viewModel.user?.mobileNumber ?? "N/A")
                             .font(.system(size: 14))
                             .foregroundStyle(.gray)
                     }
