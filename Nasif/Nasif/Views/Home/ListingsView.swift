@@ -60,23 +60,12 @@ class ListingsViewModel: ObservableObject {
 struct ListingsView: View {
     
     @StateObject var viewModel = ListingsViewModel()
+    @StateObject var locationManager = LocationManager()
+    @State var shouldCenterOnUserLocation: Bool = true
     
     let tabs = ["All", "Land", "Villa", "Apart.", "Floor", "Build.", "Other"]
     @State var selectedTab = "All"
-    
-//    @State private var listings: [ApartmentMock] = [
-//        ApartmentMock(title: "Villa for sale", location: "Riyadh, Al-Ghadeer district", price: 3000, image: "", sizeOfApartment: 300, bathrooms: 2, bedrooms: 4, status: .available, type: "Villa"),
-//        ApartmentMock(title: "Apartment for rent", location: "Jeddah, Al-Safa district", price: 150, image: "", sizeOfApartment: 120, bathrooms: 1, bedrooms: 2, status: .reserved, type: "Apart."),
-//        ApartmentMock(title: "Land for sale", location: "Riyadh, Al-Naseem district", price: 100, image: "", sizeOfApartment: 0, bathrooms: 0, bedrooms: 0, status: .sold, type: "Land"),
-//    ]
-    
-//    var filteredListings: [ApartmentMock] {
-//        if selectedTab == "All" {
-//            return listings
-//        } else {
-//            return listings.filter { $0.type == selectedTab }
-//        }
-//    }
+
     
     func tabSelected(_ tab: String) {
         selectedTab = tab
@@ -89,7 +78,8 @@ struct ListingsView: View {
         NavigationView {
             ScrollView {
                 if showMapView {
-                    GoogleMapView()
+                    GoogleMapView(listings: viewModel.listings ?? [], userLocation: locationManager.userLocation, shouldCenterOnUserLocation: $shouldCenterOnUserLocation)
+                        .frame(height: UIScreen.main.bounds.height * 0.9)
                 } else {
                     VStack {
                         if let listings = viewModel.listings {
@@ -105,9 +95,6 @@ struct ListingsView: View {
                     .padding()
                 }
             }
-//            .navigationDestination(isPresented: $showListingDetailsView){
-//                ApartmentListingCardView(listing: viewModel.listing ?? .mock)
-//            }
             .safeAreaInset(edge: .bottom, content: MapSwitcher)
             .safeAreaInset(edge: .top) {
                 CustomTabPickerView(selectedTab: $selectedTab, tabs: tabs)
@@ -126,6 +113,9 @@ struct ListingsView: View {
             Spacer()
             Button {
                 showMapView.toggle()
+                if showMapView {
+                    shouldCenterOnUserLocation = true
+                }
             } label: {
                 Image(systemName: "map")
                     .resizable()
@@ -144,4 +134,5 @@ struct ListingsView: View {
     ListingsView()
     
 }
+
 

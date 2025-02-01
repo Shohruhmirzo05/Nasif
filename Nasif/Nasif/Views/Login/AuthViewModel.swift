@@ -11,7 +11,6 @@ import Combine
 struct AuthResponse: Codable {
     let status, message: String
 }
-//"error" "success"
 
 struct SignUpResponse: Codable {
     let message: String

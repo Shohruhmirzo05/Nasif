@@ -24,13 +24,35 @@ struct NasifApp: App {
     }
 }
 
+//class AppDelegate: UIResponder, UIApplicationDelegate {
+//    func application(
+//        _ application: UIApplication,
+//        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+//    ) -> Bool {
+//        // Provide the API key for Google Maps
+//        GMSServices.provideAPIKey("AIzaSyCMGqKlXqvlCuJBkoUiPjihq-jDr3aBPjA")
+//        return true
+//    }
+//}
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        // Provide the API key for Google Maps
-        GMSServices.provideAPIKey("AIzaSyCMGqKlXqvlCuJBkoUiPjihq-jDr3aBPjA")
+        // Initialize Google Maps SDK via the shared manager
+        _ = GoogleMapsManager.shared
         return true
     }
+}
+
+class GoogleMapsManager {
+    static let shared = GoogleMapsManager()
+    
+    private init() {
+        // Initialize Google Maps SDK
+        GMSServices.provideAPIKey("AIzaSyCMGqKlXqvlCuJBkoUiPjihq-jDr3aBPjA")
+    }
+    
+    // Add any other Google Maps-related methods here
 }
