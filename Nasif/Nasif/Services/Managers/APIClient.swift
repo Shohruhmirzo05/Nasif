@@ -36,6 +36,43 @@ class APIClient {
         case verifyOTP(phoneNumber: String, otpCode: String)
         case signUp(phoneNumber: String, nickName: String, profilePictureUrl: String)
         
+        case sendListing(
+            userId: Int,
+            realEstateType: String,
+            apartmnetName: String,
+            apartmnetPrice: Int,
+            apartmentTotalMetres: Int,
+            apartmentAge: Int,
+            streetWidth: Int,
+            apartmentFacingSide: String,
+            apartmentNumberOfStreets: Int,
+            apartmentCity: String,
+            apartmentNeightbourHood: String,
+            apartmentLatitude: Double,
+            apartmentLongitude: Double,
+            apartmentMainImageUrl: String,
+            apartmentAdditionaImages: [String],
+            additionalVideoUrl: String,
+            advertiserDescription: String,
+            schemeNumber: String,
+            aparmentPartNumber: String,
+            valLicenceNumber: String?,
+            advertisingLicenceNumber: String,
+            description: String,
+            availability: Int,
+            villaType: String,
+            intendedUse: String,
+            floorNumber: Int,
+            availableFloors: Int,
+            bedroomCount: Int,
+            bathroomCount: Int,
+            livingRoomCount: Int,
+            seatingAreaCount: Int,
+            availableParking: Bool,
+            services: [String],
+            extraFeatures: [String]
+        )
+        
         fileprivate var url: URL {
             let baseURL = URL(string: AppEnvironment.current.baseUrl)!
             
@@ -46,6 +83,8 @@ class APIClient {
                 components.path.append("listings.php")
             case .getlistingById(let listingID):
                 components.path.append("listings.php/\(listingID)")
+            case .sendListing:
+                components.path.append("listings.php")
                 
                 
             case .getAllMessages:
@@ -116,6 +155,42 @@ class APIClient {
                 "nickname" : nickName,
                 "profile_picture_url" : profilePictureUrl
             ]
+        case .sendListing(let userId, let realEstateType, let apartmnetName, let apartmnetPrice, let apartmentTotalMetres, let apartmentAge, let streetWidth, let apartmentFacingSide, let apartmentNumberOfStreets, let apartmentCity, let apartmentNeightbourHood, let apartmentLatitude, let apartmentLongitude, let apartmentMainImageUrl, let apartmentAdditionaImages, let additionalVideoUrl, let advertiserDescription, let schemeNumber, let aparmentPartNumber, let valLicenceNumber, let advertisingLicenceNumber, let description, let availability, let villaType, let intendedUse, let floorNumber, let availableFloors, let bedroomCount, let bathroomCount, let livingRoomCount, let seatingAreaCount, let availableParking, let services, let extraFeatures): requestBody = [
+            "user_id" : userId,
+            "real_estate_type" : realEstateType,
+            "title" : apartmnetName,
+            "price" : apartmnetPrice,
+            "total_square_meters" : apartmentTotalMetres,
+            "real_estate_age" : apartmentAge,
+            "street_width" : streetWidth,
+            "facing" : apartmentFacingSide,
+            "number_of_streets" : apartmentNumberOfStreets,
+            "city" : apartmentCity,
+            "neighborhood" : apartmentNeightbourHood,
+            "latitude" : apartmentLatitude,
+            "longitude" : apartmentLongitude,
+            "main_image_url" : apartmentMainImageUrl,
+            "additional_images_urls" : apartmentAdditionaImages,
+            "additional_video_url" : additionalVideoUrl,
+            "advertiser_description" : advertiserDescription,
+            "scheme_number" : schemeNumber,
+            "part_number" : aparmentPartNumber,
+            "val_license_number" : valLicenceNumber,
+            "advertising_license_number" : advertisingLicenceNumber,
+            "description" : description,
+            "availability" : availability,
+            "villa_type" : villaType,
+            "intended_use" : intendedUse,
+            "floor_number" : floorNumber,
+            "available_floors" : availableFloors,
+            "bedroom_count" : bedroomCount,
+            "bathroom_count" : bathroomCount,
+            "living_room_count" : livingRoomCount,
+            "seating_area_count" : seatingAreaCount,
+            "available_parking" : availableParking,
+            "services" : services,
+            "extra_features" : extraFeatures
+        ]
         default:
             break
         }

@@ -46,12 +46,13 @@ class AuthViewModel: ObservableObject {
         startTimer()
     }
     
+//    UserDefaults.standard.customerId = customerId
     
     func sendLoginNumber() {
         currentState = .loading
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.sendNumberForLogin(phoneNumber: phoneNumber), decodeTo: AuthResponse.self)
+                let response = try await APIClient.shared.callWithStatusCode(.sendNumberForLogin(phoneNumber: "+919" + phoneNumber), decodeTo: AuthResponse.self)
                 DispatchQueue.main.async {
                     self.authResponse = response.data
                     self.currentState = .success
@@ -62,6 +63,7 @@ class AuthViewModel: ObservableObject {
                     print("error in sending otp code: \(error.localizedDescription)")
                     print(error)
                     self.currentState = .error(error.localizedDescription)
+//                    UserDefaults.standard.customerId = customerId
                 }
             }
         }
@@ -71,7 +73,7 @@ class AuthViewModel: ObservableObject {
         currentState = .loading
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.verifyOTP(phoneNumber: phoneNumber, otpCode: otpCodeString), decodeTo: AuthResponse.self)
+                let response = try await APIClient.shared.callWithStatusCode(.verifyOTP(phoneNumber: "+966" + phoneNumber, otpCode: otpCodeString), decodeTo: AuthResponse.self)
                 DispatchQueue.main.async {
                     self.authResponse = response.data
                     self.currentState = .success
@@ -89,7 +91,7 @@ class AuthViewModel: ObservableObject {
         currentState = .loading
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.signUp(phoneNumber: phoneNumber, nickName: nickName, profilePictureUrl: profilePictureUrl), decodeTo: SignUpResponse.self)
+                let response = try await APIClient.shared.callWithStatusCode(.signUp(phoneNumber: "+966" + phoneNumber, nickName: nickName, profilePictureUrl: profilePictureUrl), decodeTo: SignUpResponse.self)
                 DispatchQueue.main.async {
                     self.signUpResponse = response.data
                     self.currentState = .success

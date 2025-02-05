@@ -73,6 +73,7 @@ struct ListingsView: View {
     
     @State var showMapView: Bool = false
     @State var showListingDetailsView: Bool = false
+    @State var showAddlistingView: Bool = false
     
     var body: some View {
         NavigationView {
@@ -105,17 +106,40 @@ struct ListingsView: View {
                     .transition(.move(edge: .leading))
             }
             
+            
         }
     }
     
     @ViewBuilder func MapSwitcher() -> some View {
         HStack {
             Spacer()
-            Button {
-                showMapView.toggle()
-                if showMapView {
-                    shouldCenterOnUserLocation = true
+            VStack {
+                AddListingButton()
+                Button {
+                    showMapView.toggle()
+                    if showMapView {
+                        shouldCenterOnUserLocation = true
+                    }
+                } label: {
+                    Image(systemName: "map")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .padding(12)
+                        .background(Color.gray)
+                        .clipShape(Circle())
+                        .foregroundStyle(.white)
+                        .padding()
                 }
+                
+            }
+        }
+    }
+    
+    @ViewBuilder func AddListingButton() -> some View {
+        HStack {
+            Spacer()
+            Button {
+                showAddlistingView = true
             } label: {
                 Image(systemName: "map")
                     .resizable()
@@ -127,7 +151,12 @@ struct ListingsView: View {
                     .padding()
             }
         }
+        NavigationLink(destination: ListingAddView(), isActive: $showAddlistingView) {
+            EmptyView()
+        }
     }
+    
+    
 }
 
 #Preview {

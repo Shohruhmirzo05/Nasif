@@ -66,6 +66,12 @@
         }
       }
     },
+    "Age of the property:" : {
+
+    },
+    "Apartment" : {
+
+    },
     "Area m2" : {
       "localizations" : {
         "ar" : {
@@ -75,6 +81,9 @@
           }
         }
       }
+    },
+    "Area:" : {
+
     },
     "Available" : {
       "localizations" : {
@@ -178,6 +187,9 @@
           }
         }
       }
+    },
+    "Display condition:" : {
+
     },
     "Display number" : {
       "localizations" : {
@@ -340,6 +352,9 @@
         }
       }
     },
+    "New offer" : {
+
+    },
     "NickName" : {
       "localizations" : {
         "ar" : {
@@ -420,6 +435,9 @@
         }
       }
     },
+    "Price:" : {
+
+    },
     "profile" : {
       "localizations" : {
         "ar" : {
@@ -469,6 +487,9 @@
           }
         }
       }
+    },
+    "SAR" : {
+
     },
     "Save" : {
       "localizations" : {
@@ -545,6 +566,9 @@
           }
         }
       }
+    },
+    "Studio" : {
+
     },
     "Toilets" : {
       "localizations" : {
