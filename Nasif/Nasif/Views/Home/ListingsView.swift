@@ -113,7 +113,7 @@ struct ListingsView: View {
     @ViewBuilder func MapSwitcher() -> some View {
         HStack {
             Spacer()
-            VStack {
+            VStack(alignment: .trailing ,spacing: 8) {
                 AddListingButton()
                 Button {
                     showMapView.toggle()
@@ -141,7 +141,7 @@ struct ListingsView: View {
             Button {
                 showAddlistingView = true
             } label: {
-                Image(systemName: "map")
+                Image(systemName: "plus")
                     .resizable()
                     .frame(width: 25, height: 25)
                     .padding(12)

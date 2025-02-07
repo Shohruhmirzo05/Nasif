@@ -74,6 +74,7 @@ struct GoogleMapView: UIViewRepresentable {
                        longitude: userLocation.longitude,
                        zoom: 12
                    )
+                   
                    parent.shouldCenterOnUserLocation = true
                }
            }

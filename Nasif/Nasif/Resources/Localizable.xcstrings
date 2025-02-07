@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "-" : {
+
+    },
     "%@" : {
 
     },
@@ -20,10 +23,16 @@
     "%lld" : {
 
     },
+    "+" : {
+
+    },
     "+966" : {
 
     },
     "00:%@" : {
+
+    },
+    "Additional features:" : {
 
     },
     "Additional information:" : {
@@ -69,7 +78,16 @@
     "Age of the property:" : {
 
     },
-    "Apartment" : {
+    "agricultural" : {
+
+    },
+    "Air conditioners" : {
+
+    },
+    "apartment" : {
+
+    },
+    "architecture" : {
 
     },
     "Area m2" : {
@@ -95,6 +113,12 @@
         }
       }
     },
+    "Balcony" : {
+
+    },
+    "Basement position" : {
+
+    },
     "Bedrooms" : {
       "localizations" : {
         "ar" : {
@@ -114,6 +138,9 @@
           }
         }
       }
+    },
+    "break" : {
+
     },
     "Choose language" : {
       "localizations" : {
@@ -135,7 +162,13 @@
         }
       }
     },
+    "commercial" : {
+
+    },
     "Communication" : {
+
+    },
+    "complex" : {
 
     },
     "Continue" : {
@@ -211,6 +244,24 @@
         }
       }
     },
+    "Driver's room" : {
+
+    },
+    "Duplex" : {
+
+    },
+    "east" : {
+
+    },
+    "electricity" : {
+
+    },
+    "Enter City" : {
+
+    },
+    "Enter Country" : {
+
+    },
     "everywhere" : {
       "localizations" : {
         "ar" : {
@@ -220,6 +271,9 @@
           }
         }
       }
+    },
+    "farm" : {
+
     },
     "Features:" : {
       "localizations" : {
@@ -240,6 +294,12 @@
           }
         }
       }
+    },
+    "Floor number:" : {
+
+    },
+    "Furnished" : {
+
     },
     "Halls and councils" : {
       "localizations" : {
@@ -271,6 +331,12 @@
         }
       }
     },
+    "Independent" : {
+
+    },
+    "Intended usage" : {
+
+    },
     "Interface" : {
       "localizations" : {
         "ar" : {
@@ -280,6 +346,25 @@
           }
         }
       }
+    },
+    "kitchen" : {
+
+    },
+    "land" : {
+
+    },
+    "Latitude: %lf, Longitude: %lf" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Latitude: %1$lf, Longitude: %2$lf"
+          }
+        }
+      }
+    },
+    "Laundry room" : {
+
     },
     "listings" : {
       "localizations" : {
@@ -310,6 +395,12 @@
           }
         }
       }
+    },
+    "m" : {
+
+    },
+    "Maid's room" : {
+
     },
     "Message View" : {
       "extractionState" : "stale",
@@ -342,6 +433,9 @@
         }
       }
     },
+    "Monsters" : {
+
+    },
     "Neighborhood" : {
       "localizations" : {
         "ar" : {
@@ -355,6 +449,9 @@
     "New offer" : {
 
     },
+    "Next" : {
+
+    },
     "NickName" : {
       "localizations" : {
         "ar" : {
@@ -365,6 +462,15 @@
         }
       }
     },
+    "north" : {
+
+    },
+    "Number of bathrooms:" : {
+
+    },
+    "Number of bedrooms:" : {
+
+    },
     "Number of floors" : {
       "localizations" : {
         "ar" : {
@@ -374,6 +480,12 @@
           }
         }
       }
+    },
+    "Number of floors:" : {
+
+    },
+    "Number of halls and sitting areas:" : {
+
     },
     "Number of streets" : {
       "localizations" : {
@@ -395,6 +507,12 @@
         }
       }
     },
+    "Optical fiber" : {
+
+    },
+    "Other" : {
+
+    },
     "Part number" : {
       "localizations" : {
         "ar" : {
@@ -404,6 +522,9 @@
           }
         }
       }
+    },
+    "phone" : {
+
     },
     "Phone Number" : {
       "localizations" : {
@@ -438,6 +559,9 @@
     "Price:" : {
 
     },
+    "Private entrance" : {
+
+    },
     "profile" : {
       "localizations" : {
         "ar" : {
@@ -468,6 +592,12 @@
         }
       }
     },
+    "Property type:" : {
+
+    },
+    "Raw" : {
+
+    },
     "Reserved" : {
       "localizations" : {
         "ar" : {
@@ -478,6 +608,9 @@
         }
       }
     },
+    "residential" : {
+
+    },
     "Riyal" : {
       "localizations" : {
         "ar" : {
@@ -487,6 +620,9 @@
           }
         }
       }
+    },
+    "Sanitation" : {
+
     },
     "SAR" : {
 
@@ -521,7 +657,16 @@
         }
       }
     },
+    "Selected Location:" : {
+
+    },
+    "Send to API" : {
+
+    },
     "Sender ID: %lld" : {
+
+    },
+    "Seoul drainage" : {
 
     },
     "Services:" : {
@@ -547,6 +692,9 @@
         }
       }
     },
+    "south" : {
+
+    },
     "Space" : {
       "localizations" : {
         "ar" : {
@@ -570,6 +718,9 @@
     "Studio" : {
 
     },
+    "surface" : {
+
+    },
     "Toilets" : {
       "localizations" : {
         "ar" : {
@@ -579,6 +730,9 @@
           }
         }
       }
+    },
+    "Townhouse" : {
+
     },
     "Usage" : {
       "localizations" : {
@@ -600,6 +754,9 @@
         }
       }
     },
+    "villa" : {
+
+    },
     "Villa type" : {
       "localizations" : {
         "ar" : {
@@ -609,6 +766,15 @@
           }
         }
       }
+    },
+    "Villa Type" : {
+
+    },
+    "waters" : {
+
+    },
+    "west" : {
+
     },
     "x" : {
 

@@ -30,15 +30,24 @@ class MessageViewModel: ObservableObject {
     @Published var user: User?
     @Published var currentState: ViewState = .none
     @Published var searchQuery: String = ""
+//    @Published var g
+    
+    private var webSocketManager = WebSocketManager.shared  // To manage real-time WebSocket communication
+    private var userId: Int
     
     init() {
+        // Get the userId from UserDefaults or any other source
         if let userId = UserDefaults.standard.value(forKey: "userId") as? Int {
+            self.userId = userId
             getMessagesByUserId(userId: userId)
+            setUpWebSocket()
         } else {
+            self.userId = 0
             currentState = .error("User ID not found")
         }
     }
     
+    // Function to get all messages by userId
     func getMessagesByUserId(userId: Int) {
         currentState = .loading
         Task {
@@ -55,6 +64,7 @@ class MessageViewModel: ObservableObject {
         }
     }
     
+    // Function to get user by nickname
     func getUserByNickname(nickName: String) {
         currentState = .loading
         Task {
@@ -71,15 +81,112 @@ class MessageViewModel: ObservableObject {
         }
     }
     
+    // Set up WebSocket to listen for incoming messages
+    private func setUpWebSocket() {
+        webSocketManager.connect()
+        
+        // When a new message is received over WebSocket
+        webSocketManager.onMessageReceived = { [weak self] message in
+            self?.handleIncomingMessage(message)
+        }
+    }
+    
+    // Function to handle incoming WebSocket messages
+    private func handleIncomingMessage(_ message: Message) {
+        // Check if the message sender is the user you are viewing
+        if message.senderID == user?.userID {
+            DispatchQueue.main.async {
+                self.messagesByUserId.append(message)
+            }
+        }
+    }
+    
+    // Function to send a message via WebSocket
+    func sendMessage(content: String, recipientId: Int) {
+        let message = Message(id: userId, senderID: self.userId, recipientID: recipientId, groupID: , messageContent: content, createdAt: getCurrentTimestamp())
+        
+        // Send message via WebSocket
+        webSocketManager.sendTextMessage(message, toRecipientId: recipientId)
+        
+        // Optionally, append the sent message to the local messages array
+        DispatchQueue.main.async {
+            self.messagesByUserId.append(message)
+        }
+    }
+    
+    // Helper function to get current timestamp
+    private func getCurrentTimestamp() -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter.string(from: Date())
+    }
+
     var filteredMessages: [Message] {
         guard !searchQuery.isEmpty else { return messagesByUserId }
-        return messagesByUserId.filter { $0.messageContent.lowercased().contains(searchQuery.lowercased()) }
+        return messagesByUserId.filter { $0.messageContent?.lowercased().contains(searchQuery.lowercased()) ?? false }
     }
     
     enum ViewState: Equatable {
         case loading, none, error(_ description: String)
     }
 }
+
+
+//class MessageViewModel: ObservableObject {
+//    @Published var messagesByUserId: [Message] = []
+//    @Published var user: User?
+//    @Published var currentState: ViewState = .none
+//    @Published var searchQuery: String = ""
+//    
+//    init() {
+//        if let userId = UserDefaults.standard.value(forKey: "userId") as? Int {
+//            getMessagesByUserId(userId: userId)
+//        } else {
+//            currentState = .error("User ID not found")
+//        }
+//    }
+//    
+//    func getMessagesByUserId(userId: Int) {
+//        currentState = .loading
+//        Task {
+//            do {
+//                let response = try await APIClient.shared.callWithStatusCode(.getMessagesByUserId(userId: userId), decodeTo: [Message].self)
+//                DispatchQueue.main.async {
+//                    self.messagesByUserId = response.data
+//                    self.currentState = .none
+//                }
+//            } catch {
+//                print("Error fetching messages by userId:", error.localizedDescription)
+//                currentState = .error(error.localizedDescription)
+//            }
+//        }
+//    }
+//    
+//    func getUserByNickname(nickName: String) {
+//        currentState = .loading
+//        Task {
+//            do {
+//                let response = try await APIClient.shared.callWithStatusCode(.getUserByNickname(nickName: nickName), decodeTo: User.self)
+//                DispatchQueue.main.async {
+//                    self.user = response.data
+//                    self.currentState = .none
+//                }
+//            } catch {
+//                print("Error fetching user by nickname:", error.localizedDescription)
+//                currentState = .error(error.localizedDescription)
+//            }
+//        }
+//    }
+//    
+//    var filteredMessages: [Message] {
+//        guard !searchQuery.isEmpty else { return messagesByUserId }
+//        return messagesByUserId.filter { $0.messageContent?.lowercased().contains(searchQuery.lowercased()) ?? false }
+//    }
+//    
+//    enum ViewState: Equatable {
+//        case loading, none, error(_ description: String)
+//    }
+//}
 
 
 struct MessagesView: View {
@@ -127,7 +234,7 @@ struct MessageRowCard: View {
                     Text("Sender ID: \(message.senderID ?? -1)")
                         .font(.abel(size: 14))
                     
-                    Text(message.messageContent)
+                    Text(message.messageContent ?? "")
                         .foregroundColor(.gray.opacity(0.7))
                         .lineLimit(1)
                         .font(.abel(size: 12))
@@ -135,7 +242,7 @@ struct MessageRowCard: View {
                 
                 Spacer()
                 
-                Text(formatDate(message.createdAt))
+                Text(formatDate(message.createdAt ?? ""))
                     .font(.caption)
                     .foregroundColor(.gray)
                     .frame(maxHeight: .infinity, alignment: .top)
