@@ -16,8 +16,8 @@ struct NasifApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            PhoneInputView()
-            TabbarView()
+            ContentView()
+//            TabbarView()
                 .environment(\.locale, Locale(identifier: appLanguage))
                 .environmentObject(viewModel)
         }

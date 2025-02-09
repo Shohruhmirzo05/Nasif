@@ -8,8 +8,37 @@
 import SwiftUI
 import Combine
 
+struct UserDefaultsKeys {
+    static let accessToken = "accessToken"
+    static let userId = "userId"
+}
+
+extension UserDefaults {
+    var accessToken: String? {
+        get { string(forKey: UserDefaultsKeys.accessToken) }
+        set { set(newValue, forKey: UserDefaultsKeys.accessToken) }
+    }
+
+    var userId: Int? {
+        get { integer(forKey: UserDefaultsKeys.userId) }
+        set { set(newValue, forKey: UserDefaultsKeys.userId) }
+    }
+}
+
 struct AuthResponse: Codable {
     let status, message: String
+    let data: AuthResponseData?
+}
+
+struct AuthResponseData: Codable {
+    let token: String?
+    let phone: String?
+    let userId: Int?
+    
+    enum CodingKeys: String, CodingKey {
+        case token, phone
+        case userId = "user_id"
+    }
 }
 
 struct SignUpResponse: Codable {
@@ -31,85 +60,152 @@ class AuthViewModel: ObservableObject {
     @Published var canResendCode: Bool = false
     
     @Published var phoneNumber: String = ""
-    @Published var otpCodeString: String = ""
-    
-    @Published var currentState: ViewState = .loading
-    @Published var authResponse: AuthResponse?
-    @Published var signUpResponse: SignUpResponse?
-    
     @Published var nickName: String = ""
     @Published var profilePictureUrl: String = ""
-
+    @Published var selectedImage: UIImage?
+    
+    @Published var currentState: ViewState = .idle
+    @Published var authResponse: AuthResponse?
+    @Published var signUpResponse: SignUpResponse?
+    @Published var user: User?
+    
+    @Published var showSignUpView: Bool = false
+    @Published var isAuthenticated: Bool = false
+    
     private var timerCancellable: AnyCancellable?
-
+    
+    let userId: Int? = {
+        return UserDefaults.standard.integer(forKey: "userId")
+    }()
+    
+    var otpString: String {
+        otpCode.joined()
+    }
+    @AppStorage(AppStorageKeys.currentContent) var currentContent = ContentScreens.onboarding
+    
     init() {
-        startTimer()
+        getUserById(userId: /*userId*/ 1)
     }
     
-//    UserDefaults.standard.customerId = customerId
-    
+    func getUserById(userId: Int? = nil) {
+        Task {
+            do {
+                let response = try await APIClient.shared.callWithStatusCode(.getUserById(id: userId ?? 0), decodeTo: User.self)
+                DispatchQueue.main.async {
+                    self.user = response.data
+                   
+                    UserDefaults.standard.set(self.user?.userID, forKey: "userId")
+                }
+            } catch {
+                print(error)
+                print(error.localizedDescription)
+                print("error in fetching user by id")
+                currentState = .error(error.localizedDescription)
+            }
+        }
+    }
+
     func sendLoginNumber() {
+        guard isPhoneNumberValid else {
+            currentState = .error("Invalid phone number")
+            return
+        }
+        
         currentState = .loading
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.sendNumberForLogin(phoneNumber: "+919" + phoneNumber), decodeTo: AuthResponse.self)
-                DispatchQueue.main.async {
-                    self.authResponse = response.data
-                    self.currentState = .success
-                    print("✅ otp code is sent: \(response.data)")
-                }
+                let response = try await APIClient.shared.callWithStatusCode(
+                    .sendNumberForLogin(phoneNumber: "+91" + phoneNumber),
+                    decodeTo: AuthResponse.self
+                )
+                self.authResponse = response.data
+                self.currentState = .success
+                startTimer()
             } catch {
-                DispatchQueue.main.async {
-                    print("error in sending otp code: \(error.localizedDescription)")
-                    print(error)
-                    self.currentState = .error(error.localizedDescription)
-//                    UserDefaults.standard.customerId = customerId
-                }
+                self.currentState = .error(error.localizedDescription)
             }
         }
     }
     
     func verifyOtp() {
+        guard otpString.count == 6 else {
+            currentState = .error("Please enter complete OTP")
+            return
+        }
+        
         currentState = .loading
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.verifyOTP(phoneNumber: "+966" + phoneNumber, otpCode: otpCodeString), decodeTo: AuthResponse.self)
-                DispatchQueue.main.async {
+                let response = try await APIClient.shared.callWithStatusCode(
+                    .verifyOTP(phoneNumber: "+91" + phoneNumber, otpCode: otpString),
+                    decodeTo: AuthResponse.self
+                )
+                if response.statusCode == 200 {
                     self.authResponse = response.data
                     self.currentState = .success
-                    print("✅ otp verified successfully: \(response.data)")
+                    self.isAuthenticated = true
+                    self.currentContent = .main
+                    UserDefaults.standard.userId = response.data.data?.userId
+                    print("Login successful. Data stored in UserDefaults.")
+                    self.getUserById(userId: response.data.data?.userId ?? 0)
+                } else if response.statusCode == 404 {
+                    self.showSignUpView = true
                 }
             } catch {
-                print(error)
-                print(error.localizedDescription)
                 currentState = .error(error.localizedDescription)
             }
         }
     }
     
     func signUp() {
+        guard !nickName.isEmpty else {
+            currentState = .error("Please enter a nickname")
+            return
+        }
+        
         currentState = .loading
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.signUp(phoneNumber: "+966" + phoneNumber, nickName: nickName, profilePictureUrl: profilePictureUrl), decodeTo: SignUpResponse.self)
-                DispatchQueue.main.async {
-                    self.signUpResponse = response.data
-                    self.currentState = .success
-                    print("✅ user signed up successfully: \(response.data)")
+                var imageUrl = ""
+                if let image = selectedImage {
+                    imageUrl = await uploadImage(image) ?? ""
                 }
+                
+                let response = try await APIClient.shared.callWithStatusCode(
+                    .signUp(
+                        phoneNumber: "+91" + phoneNumber,
+                        nickName: nickName,
+                        profilePictureUrl: imageUrl
+                    ),
+                    decodeTo: SignUpResponse.self
+                )
+                self.signUpResponse = response.data
+                self.currentState = .success
+                self.currentContent = .main
+                self.isAuthenticated = true
             } catch {
-                print(error)
-                print(error.localizedDescription)
                 currentState = .error(error.localizedDescription)
             }
         }
     }
     
+    private func uploadImage(_ image: UIImage) async -> String? {
+        // Implement image upload logic here
+        // Return the URL of the uploaded image
+        return nil
+    }
+    
+    enum ViewState: Equatable {
+        case idle
+        case loading
+        case success
+        case error(String)
+    }
     
     var isPhoneNumberValid: Bool {
-        phoneNumber.filter { $0.isWholeNumber }.count == 9
+        phoneNumber.filter { $0.isWholeNumber }.count >= 1
     }
-
+    
     func startTimer() {
         canResendCode = false
         timerValue = 59
@@ -126,33 +222,8 @@ class AuthViewModel: ObservableObject {
                 }
             }
     }
-
+    
     func resendCode() {
         startTimer()
     }
-
-    func handleInput(_ value: String, at index: Int) {
-        if value.isEmpty && !otpCode[index].isEmpty {
-            handleBackspace(at: index)
-        } else {
-            otpCode[index] = String(value.prefix(1))
-            if !value.isEmpty && index < otpCode.count - 1 {
-                focusedField = index + 1
-            }
-        }
-    }
-
-    func handleBackspace(at index: Int) {
-        otpCode[index] = ""
-        if index > 0 {
-            focusedField = index - 1
-        }
-    }
-    
-    enum ViewState: Equatable {
-        case loading
-        case success
-        case error(_ description: String)
-    }
 }
-

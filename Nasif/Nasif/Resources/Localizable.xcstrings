@@ -23,6 +23,9 @@
     "%lld" : {
 
     },
+    "%lld messages" : {
+
+    },
     "+" : {
 
     },
@@ -142,6 +145,9 @@
     "break" : {
 
     },
+    "Chats" : {
+
+    },
     "Choose language" : {
       "localizations" : {
         "ar" : {
@@ -162,13 +168,22 @@
         }
       }
     },
+    "Code sent to +%@" : {
+
+    },
     "commercial" : {
 
     },
-    "Communication" : {
+    "Complete Sign Up" : {
+
+    },
+    "Complete Your Profile" : {
 
     },
     "complex" : {
+
+    },
+    "Confirm" : {
 
     },
     "Continue" : {
@@ -260,6 +275,15 @@
 
     },
     "Enter Country" : {
+
+    },
+    "Enter phone number" : {
+
+    },
+    "Enter Verification Code" : {
+
+    },
+    "Error" : {
 
     },
     "everywhere" : {
@@ -452,7 +476,11 @@
     "Next" : {
 
     },
+    "Nickname" : {
+
+    },
     "NickName" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -506,6 +534,9 @@
           }
         }
       }
+    },
+    "OK" : {
+
     },
     "Optical fiber" : {
 
@@ -628,6 +659,7 @@
 
     },
     "Save" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -660,10 +692,10 @@
     "Selected Location:" : {
 
     },
-    "Send to API" : {
+    "Send" : {
 
     },
-    "Sender ID: %lld" : {
+    "Send to API" : {
 
     },
     "Seoul drainage" : {
@@ -734,6 +766,9 @@
     "Townhouse" : {
 
     },
+    "Type a message..." : {
+
+    },
     "Usage" : {
       "localizations" : {
         "ar" : {
@@ -774,9 +809,6 @@
 
     },
     "west" : {
-
-    },
-    "x" : {
 
     }
   },

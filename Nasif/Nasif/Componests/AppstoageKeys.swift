@@ -10,7 +10,8 @@ import SwiftUI
 class AppStorageKeys {
     static let isNotificationOn = "isNotificationOn"
     static let appLanguage = "appLanguage"
-    static let unreadNotificationsCount = "unreadNotificationsCount"
     static let latestIOSVersion = "lastestIOSVersion"
-    static let isFaceIdEnabled = "isFaceIdEnabled"
+    static let currentContent = "currentContent"
+    static let accesstoken = "accessToken"
+    static let userId = "userId"
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Message: Codable, Identifiable {
+struct Message: Codable, Identifiable, Hashable {
     let id: Int?
     let senderID, recipientID: Int?
     let groupID: Int?
@@ -21,7 +21,7 @@ struct Message: Codable, Identifiable {
         case groupID = "group_id"
         case messageContent = "message_content"
         case createdAt = "created_at"
-        case mediaType
+        case mediaType = "media_type"
     }
     
     static let mock = Message(
@@ -33,4 +33,20 @@ struct Message: Codable, Identifiable {
         createdAt: "2025-01-30T12:00:00Z",
         mediaType: ""
     )
+}
+
+struct MediaMessage {
+    let data: Data
+    let filename: String
+    let mimeType: String
+}
+
+extension Message {
+    enum MediaType: String {
+        case text = "text"
+        case image = "image"
+        case video = "video"
+        case audio = "audio"
+        case file = "file"
+    }
 }

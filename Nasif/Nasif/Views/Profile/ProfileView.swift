@@ -13,15 +13,21 @@ class ProfileViewModel: ObservableObject {
     @Published var selectedLanguage: String?
     @Published var currentState: ViewState = .none
     @AppStorage(AppStorageKeys.appLanguage) var appLanguage = Constants.defaultLanguage
+    @AppStorage(AppStorageKeys.currentContent) var currentContent = ContentScreens.onboarding
     @Published var layoutDirection = LayoutDirection(.leftToRight)
     @Published var user: User?
     
     let nickName: String? = {
         return UserDefaults.standard.string(forKey: "nickname")
     }()
-        
+    
+    var userId: Int? = {
+        return UserDefaults.standard.integer(forKey: "userId")
+    }()
+    
     init() {
-        getUserByNickName(nickName: nickName ?? "N/A")
+        //        getUserByNickName(nickName: "sofia" /*?? "N/A"*/)
+        getUserById(userId: userId)
     }
     
     func changeLanguage(language: String, completion: @escaping () -> ()) {
@@ -37,6 +43,7 @@ class ProfileViewModel: ObservableObject {
                 self.appLanguage = language
                 self.selectedLanguage = language
                 self.currentState = .none
+                self.currentContent = .main
                 if language == "ar" {
                     self.layoutDirection = .rightToLeft
                 } else {
@@ -47,11 +54,10 @@ class ProfileViewModel: ObservableObject {
         }
     }
     
-    func getUserByNickName(nickName: String) {
-        currentState = .loading
+    func getUserById(userId: Int? = nil) {
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.getUserByNickname(nickName: nickName), decodeTo: User.self)
+                let response = try await APIClient.shared.callWithStatusCode(.getUserById(id: userId ?? 0), decodeTo: User.self)
                 DispatchQueue.main.async {
                     self.user = response.data
                     self.currentState = .none
@@ -60,7 +66,7 @@ class ProfileViewModel: ObservableObject {
             } catch {
                 print(error)
                 print(error.localizedDescription)
-                print("error in fetching user by nickname")
+                print("error in fetching user by id")
                 currentState = .error(description: error.localizedDescription)
             }
         }
@@ -81,7 +87,7 @@ struct ProfileView: View {
     
     @State var layoutDirection = LayoutDirection(.leftToRight)
     @EnvironmentObject var viewModel: ProfileViewModel
-   
+    
     
     var body: some View {
         NavigationView {
@@ -175,7 +181,9 @@ struct ProfileView: View {
             }
             .safeAreaInset(edge: .bottom) {
                 Button {
-                    
+                    viewModel.userId = nil
+                    viewModel.user = nil
+                    viewModel.currentContent = .onboarding
                 } label: {
                     HStack {
                         Spacer()
@@ -198,7 +206,6 @@ struct ProfileView: View {
             }
             .sheet(isPresented: $showLanguagePicker) {
                 LanguagePickerView()
-//                    .presentationDetents([.fraction(0.3)])
                     .apply {
                         if #available(iOS 16.4, *) {
                             $0
@@ -208,7 +215,6 @@ struct ProfileView: View {
                             $0
                         }
                     }
-//                    .presentationDragIndicator(.visible)
             }
             .environment(\.layoutDirection, viewModel.layoutDirection ?? LayoutDirection.leftToRight)
         }
