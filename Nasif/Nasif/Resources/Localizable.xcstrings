@@ -38,6 +38,9 @@
     "Additional features:" : {
 
     },
+    "Additional Images (%lld/5)" : {
+
+    },
     "Additional information:" : {
       "localizations" : {
         "ar" : {
@@ -426,6 +429,9 @@
     "Maid's room" : {
 
     },
+    "Main Image" : {
+
+    },
     "Message View" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -471,9 +477,6 @@
       }
     },
     "New offer" : {
-
-    },
-    "Next" : {
 
     },
     "Nickname" : {
@@ -750,6 +753,9 @@
     "Studio" : {
 
     },
+    "Submit Listing" : {
+
+    },
     "surface" : {
 
     },
@@ -767,6 +773,9 @@
 
     },
     "Type a message..." : {
+
+    },
+    "Upload Media" : {
 
     },
     "Usage" : {
@@ -788,6 +797,12 @@
           }
         }
       }
+    },
+    "Video" : {
+
+    },
+    "Video Selected" : {
+
     },
     "villa" : {
 

@@ -96,6 +96,9 @@ struct ListingsView: View {
                     .padding()
                 }
             }
+            .refreshable {
+                viewModel.getListings()
+            }
             .safeAreaInset(edge: .bottom, content: MapSwitcher)
             .safeAreaInset(edge: .top) {
                 CustomTabPickerView(selectedTab: $selectedTab, tabs: tabs)
@@ -151,8 +154,12 @@ struct ListingsView: View {
                     .padding()
             }
         }
-        NavigationLink(destination: ListingAddView(), isActive: $showAddlistingView) {
-            EmptyView()
+        if #available(iOS 16.0, *) {
+            NavigationLink(destination: ListingAddView(), isActive: $showAddlistingView) {
+                EmptyView()
+            }
+        } else {
+            // Fallback on earlier versions
         }
     }
     

@@ -246,7 +246,7 @@ struct MessageDetails: View {
     var messages: [Message]
     @State private var newMessage: String = ""
     @State private var isScrolledToBottom: Bool = true
-    @FocusState private var isTextFieldFocused: Bool 
+    @FocusState private var isTextFieldFocused: Bool
     
     var body: some View {
         VStack {

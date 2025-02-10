@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GoogleMaps
+import _PhotosUI_SwiftUI
 
 struct ListingAddResponse: Codable {
     var message: String?
@@ -15,37 +16,43 @@ struct ListingAddResponse: Codable {
 @MainActor
 class ListingAddViewModel: ObservableObject {
     
-    @Published var realEstateType: String? = nil
-    @Published var apartmnetName: String? = nil
-    @Published var apartmnetPrice: Int? = nil
-    @Published var apartmentTotalMetres: Int? = nil
-    @Published var apartmentAge: Int? = nil
-    @Published var streetWidth: Int? = nil
-    @Published var apartmentFacingSide: String? = nil
-    @Published var apartmentNumberOfStreets: Int? = nil
-    @Published var apartmentCity: String? = nil
-    @Published var apartmentNeightbourHood: String? = nil
-    @Published var apartmentLatitude: Double? = nil
-    @Published var apartmentLongitude: Double? = nil
-    @Published var apartmentMainImageUrl: String? = nil
-    @Published var apartmentAdditionaImages: [String]? = nil
-    @Published var additionalVideoUrl: String? = nil
-    @Published var advertiserDescription: String? = nil
-    @Published var schemeNumber: String? = nil
-    @Published var aparmentPartNumber: String? = nil
-    @Published var valLicenceNumber: String? = nil
-    @Published var advertisingLicenceNumber: String? = nil
-    @Published var description: String? = nil
-    @Published var availability: Int? = nil
-    @Published var villaType: String? = nil
-    @Published var intendedUse: String? = nil
+    @Published var realEstateType: String?
+    @Published var apartmnetName: String?
+    @Published var apartmnetPrice: Int?
+    @Published var apartmentTotalMetres: Int?
+    @Published var apartmentAge: Int?
+    @Published var streetWidth: Int?
+    @Published var apartmentFacingSide: String?
+    @Published var apartmentNumberOfStreets: Int?
+    @Published var apartmentCity: String?
+    @Published var apartmentNeightbourHood: String?
+    @Published var apartmentLatitude: Double?
+    @Published var apartmentLongitude: Double?
+    
+    @Published var mainImageUrl: String?
+    @Published var additionalImagesUrls: [String] = []
+    @Published var additionalVideoUrl: String?
+    
+    @Published var mainImage: UIImage?
+    @Published var additionalImages: [UIImage] = []
+    @Published var videoURL: URL?
+    
+    @Published var advertiserDescription: String?
+    @Published var schemeNumber: String?
+    @Published var aparmentPartNumber: String?
+    @Published var valLicenceNumber: String?
+    @Published var advertisingLicenceNumber: String?
+    @Published var description: String?
+    @Published var availability: Int?
+    @Published var villaType: String?
+    @Published var intendedUse: String?
     @Published var floorNumber: Int = 1
     @Published var availableFloors: Int = 1
     @Published var bedroomCount: Int = 1
     @Published var bathroomCount: Int = 1
     @Published var livingRoomCount: Int = 1
     @Published var seatingAreaCount: Int = 1
-    @Published var availableParking: Bool? = nil
+    @Published var availableParking: Bool?
     @Published var services: [String] = []
     @Published var extraFeatures: [String] = []
     
@@ -66,23 +73,326 @@ class ListingAddViewModel: ObservableObject {
     
     func sendListings() {
         isListingLoading = true
+        
         Task {
             do {
-                let response = try await APIClient.shared.callWithStatusCode(.sendListing(userId: 1/* ?? 0*/, realEstateType: realEstateType ?? "", apartmnetName: apartmnetName ?? "", apartmnetPrice: apartmnetPrice ?? 0, apartmentTotalMetres: apartmentTotalMetres ?? 0, apartmentAge: apartmentAge ?? 0, streetWidth: streetWidth ?? 0, apartmentFacingSide: apartmentFacingSide ?? "", apartmentNumberOfStreets: apartmentNumberOfStreets ?? 0, apartmentCity: apartmentCity ?? "", apartmentNeightbourHood: apartmentNeightbourHood ?? "", apartmentLatitude: apartmentLatitude ?? 0, apartmentLongitude: apartmentLongitude ?? 0, apartmentMainImageUrl: apartmentMainImageUrl ?? "", apartmentAdditionaImages: apartmentAdditionaImages ?? [], additionalVideoUrl: additionalVideoUrl ?? "", advertiserDescription: advertiserDescription ?? "", schemeNumber: schemeNumber ?? "", aparmentPartNumber: aparmentPartNumber ?? "", valLicenceNumber: valLicenceNumber ?? "", advertisingLicenceNumber: advertisingLicenceNumber ?? "", description: description ?? "", availability: availability ??  1, villaType: villaType ?? "", intendedUse: intendedUse ?? "", floorNumber: floorNumber, availableFloors: availableFloors, bedroomCount: bedroomCount, bathroomCount: bathroomCount, livingRoomCount: livingRoomCount, seatingAreaCount: seatingAreaCount, availableParking: availableParking ?? true, services: services, extraFeatures: extraFeatures), decodeTo: ListingAddResponse.self)
+                let (mainUrl, additionalUrls, videoUrl) = try await APIClient.shared.uploadMediaFiles(
+                                  mainImage: mainImage,
+                                  additionalImages: additionalImages,
+                                  videoURL: videoURL
+                              )
+//                print("🚀 Uploading Main Image & Video...")
+//                
+//                let (uploadedMainImageUrl, uploadedVideoUrl) = try await APIClient.shared.uploadMedia(
+//                    image: mainImage,
+//                    videoURL: videoURL
+//                ) { progress in
+//                    print("📤 Main Media Upload Progress: \(progress * 100)%")
+//                }
+//                
+//                print("✅ Main Image Uploaded: \(uploadedMainImageUrl ?? "None")")
+//                print("✅ Video Uploaded: \(uploadedVideoUrl ?? "None")")
+//                
+//                // Store uploaded URLs
+//                DispatchQueue.main.async {
+//                    self.mainImageUrl = uploadedMainImageUrl
+//                    self.additionalVideoUrl = uploadedVideoUrl
+//                }
+//                
+//                // Step 2: Upload Additional Images
+//                var uploadedImageUrls: [String] = []
+//                for (index, image) in additionalImages.enumerated() {
+//                    do {
+//                        print("🚀 Uploading Additional Image \(index + 1)...")
+//                        
+//                        let (imageUrl, _) = try await APIClient.shared.uploadMedia(
+//                            image: image,
+//                            videoURL: nil
+//                        ) { progress in
+//                            print("📤 Upload Progress for Image \(index + 1): \(progress * 100)%")
+//                        }
+//                        
+//                        if let imageUrl = imageUrl {
+//                            uploadedImageUrls.append(imageUrl)
+//                            print("✅ Additional Image \(index + 1) Uploaded: \(imageUrl)")
+//                        } else {
+//                            print("❌ Failed to upload Additional Image \(index + 1)")
+//                        }
+//                    } catch {
+//                        print("❌ Error uploading Additional Image \(index + 1): \(error)")
+//                    }
+//                }
+//                
+//                // Store uploaded image URLs
+//                DispatchQueue.main.async {
+//                    self.additionalImagesUrls = uploadedImageUrls
+//                }
+//                
+//                // ✅ Step 3: Confirm all uploads are completed
+//                print("🚀 All Media Uploads Completed. Preparing to send listing...")
+                
+                
+                // Step 4: Send Listing with Updated URLs
+                let response = try await APIClient.shared.callWithStatusCode(
+                    .sendListing(
+                        userId: 1 /*?? 0*/,
+                        realEstateType: realEstateType ?? "",
+                        apartmnetName: apartmnetName ?? "",
+                        apartmnetPrice: apartmnetPrice ?? 0,
+                        apartmentTotalMetres: apartmentTotalMetres ?? 0,
+                        apartmentAge: apartmentAge ?? 0,
+                        streetWidth: streetWidth ?? 0,
+                        apartmentFacingSide: apartmentFacingSide ?? "",
+                        apartmentNumberOfStreets: apartmentNumberOfStreets ?? 0,
+                        apartmentCity: apartmentCity ?? "",
+                        apartmentNeightbourHood: apartmentNeightbourHood ?? "",
+                        apartmentLatitude: apartmentLatitude ?? 0,
+                        apartmentLongitude: apartmentLongitude ?? 0,
+                        
+                        apartmentMainImageUrl: mainUrl ?? "",
+                        apartmentAdditionalImages: additionalUrls,
+                        additionalVideoUrl: videoUrl ?? "",
+                        
+                        advertiserDescription: advertiserDescription ?? "",
+                        schemeNumber: schemeNumber ?? "",
+                        aparmentPartNumber: aparmentPartNumber ?? "",
+                        valLicenceNumber: valLicenceNumber ?? "",
+                        advertisingLicenceNumber: advertisingLicenceNumber ?? "",
+                        description: description ?? "",
+                        availability: availability ?? 1,
+                        villaType: villaType ?? "",
+                        intendedUse: intendedUse ?? "",
+                        floorNumber: floorNumber,
+                        availableFloors: availableFloors,
+                        bedroomCount: bedroomCount,
+                        bathroomCount: bathroomCount,
+                        livingRoomCount: livingRoomCount,
+                        seatingAreaCount: seatingAreaCount,
+                        availableParking: availableParking ?? true,
+                        services: services,
+                        extraFeatures: extraFeatures
+                    ),
+                    decodeTo: ListingAddResponse.self
+                )
+                
+                print(response.data)
                 DispatchQueue.main.async {
                     self.listingResponse = response.data
                     self.isListingLoading = false
-                    print("success in sending listing: \(response)")
+                    print("✅ Success in sending listing: \(response)")
                 }
+                
             } catch {
                 isListingLoading = false
-                print("error in sending listing: \(error)")
-                print(error.localizedDescription)
+                print("❌ Error in sending listing: \(error.localizedDescription)")
+                print(error)
             }
         }
     }
+    
+    
 }
+//APIClient.shared.uploadMedia(image: mainImage, videoURL: videoURL, progressHandler: <#T##(Float) -> Void#>)
 
+//@MainActor
+//class ListingAddViewModel: ObservableObject {
+//
+//    @Published var realEstateType: String? = nil
+//    @Published var apartmnetName: String? = nil
+//    @Published var apartmnetPrice: Int? = nil
+//    @Published var apartmentTotalMetres: Int? = nil
+//    @Published var apartmentAge: Int? = nil
+//    @Published var streetWidth: Int? = nil
+//    @Published var apartmentFacingSide: String? = nil
+//    @Published var apartmentNumberOfStreets: Int? = nil
+//    @Published var apartmentCity: String? = nil
+//    @Published var apartmentNeightbourHood: String? = nil
+//    @Published var apartmentLatitude: Double? = nil
+//    @Published var apartmentLongitude: Double? = nil
+//
+//    // Media properties
+//    @Published var mainImage: UIImage?
+//    @Published var additionalImages: [UIImage] = []
+//    @Published var videoURL: URL?
+//
+//    // Uploaded URLs
+//    @Published var mainImageUrl: String?
+//    @Published var additionalImagesUrls: [String] = []
+//    @Published var additionalVideoUrl: String?
+//
+//    @Published var advertiserDescription: String? = nil
+//    @Published var schemeNumber: String? = nil
+//    @Published var aparmentPartNumber: String? = nil
+//    @Published var valLicenceNumber: String? = nil
+//    @Published var advertisingLicenceNumber: String? = nil
+//    @Published var description: String? = nil
+//    @Published var availability: Int? = nil
+//    @Published var villaType: String? = nil
+//    @Published var intendedUse: String? = nil
+//    @Published var floorNumber: Int = 1
+//    @Published var availableFloors: Int = 1
+//    @Published var bedroomCount: Int = 1
+//    @Published var bathroomCount: Int = 1
+//    @Published var livingRoomCount: Int = 1
+//    @Published var seatingAreaCount: Int = 1
+//    @Published var availableParking: Bool? = nil
+//    @Published var services: [String] = []
+//    @Published var extraFeatures: [String] = []
+//
+//    @Published var listingResponse: ListingAddResponse?
+//    @Published var isListingLoading: Bool = false
+//
+//    let userId: Int? = {
+//        return UserDefaults.standard.integer(forKey: "userId")
+//    }()
+//
+//    func sendListing() {
+//        isListingLoading = true
+//        uploadMedia { success in
+//            if success {
+//                Task {
+//                    do {
+//                        let response = try await APIClient.shared.callWithStatusCode(
+//                            .sendListing(
+//                                userId: 1,
+//                                realEstateType: self.realEstateType ?? "",
+//                                apartmnetName: self.apartmnetName ?? "",
+//                                apartmnetPrice: self.apartmnetPrice ?? 0,
+//                                apartmentTotalMetres: self.apartmentTotalMetres ?? 0,
+//                                apartmentAge: self.apartmentAge ?? 0,
+//                                streetWidth: self.streetWidth ?? 0,
+//                                apartmentFacingSide: self.apartmentFacingSide ?? "",
+//                                apartmentNumberOfStreets: self.apartmentNumberOfStreets ?? 0,
+//                                apartmentCity: self.apartmentCity ?? "",
+//                                apartmentNeightbourHood: self.apartmentNeightbourHood ?? "",
+//                                apartmentLatitude: self.apartmentLatitude ?? 0,
+//                                apartmentLongitude: self.apartmentLongitude ?? 0,
+//                                apartmentMainImageUrl: self.mainImageUrl ?? "",
+//                                apartmentAdditionaImages: self.additionalImagesUrls,
+//                                additionalVideoUrl: self.additionalVideoUrl ?? "",
+//                                advertiserDescription: self.advertiserDescription ?? "",
+//                                schemeNumber: self.schemeNumber ?? "",
+//                                aparmentPartNumber: self.aparmentPartNumber ?? "",
+//                                valLicenceNumber: self.valLicenceNumber ?? "",
+//                                advertisingLicenceNumber: self.advertisingLicenceNumber ?? "",
+//                                description: self.description ?? "",
+//                                availability: self.availability ?? 1,
+//                                villaType: self.villaType ?? "",
+//                                intendedUse: self.intendedUse ?? "",
+//                                floorNumber: self.floorNumber,
+//                                availableFloors: self.availableFloors,
+//                                bedroomCount: self.bedroomCount,
+//                                bathroomCount: self.bathroomCount,
+//                                livingRoomCount: self.livingRoomCount,
+//                                seatingAreaCount: self.seatingAreaCount,
+//                                availableParking: self.availableParking ?? true,
+//                                services: self.services,
+//                                extraFeatures: self.extraFeatures
+//                            ),
+//                            decodeTo: ListingAddResponse.self
+//                        )
+//
+//                        DispatchQueue.main.async {
+//                            self.listingResponse = response.data
+//                            self.isListingLoading = false
+//                            print("Success in sending listing: \(response)")
+//                        }
+//                    } catch {
+//                        self.isListingLoading = false
+//                        print("Error in sending listing: \(error)")
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    func uploadMedia(completion: @escaping (Bool) -> Void) {
+//        let dispatchGroup = DispatchGroup()
+//
+//        var uploadedMainImageUrl: String?
+//        var uploadedAdditionalImagesUrls: [String] = []
+//        var uploadedVideoUrl: String?
+//
+//        // Upload main image
+//        if let mainImage = mainImage {
+//            dispatchGroup.enter()
+//            uploadImage(mainImage) { url in
+//                DispatchQueue.main.async {
+//                    uploadedMainImageUrl = url
+//                    dispatchGroup.leave()
+//                }
+//            }
+//        }
+//
+//        for image in additionalImages {
+//            dispatchGroup.enter()
+//            uploadImage(image) { url in
+//                DispatchQueue.main.async {
+//                    if let url = url {
+//                        uploadedAdditionalImagesUrls.append(url)
+//                    }
+//                    dispatchGroup.leave()
+//                }
+//            }
+//        }
+//
+//        if let videoURL = videoURL {
+//            dispatchGroup.enter()
+//            APIClient.shared.uploadMedia(fileURL: videoURL) { result in
+//                DispatchQueue.main.async {
+//                    switch result {
+//                    case .success(let url):
+//                        uploadedVideoUrl = url
+//                    case .failure(let error):
+//                        print("Video upload failed: \(error)")
+//                    }
+//                    dispatchGroup.leave()
+//                }
+//            }
+//        }
+//
+//        dispatchGroup.notify(queue: .main) {
+//            self.mainImageUrl = uploadedMainImageUrl
+//            self.additionalImagesUrls = uploadedAdditionalImagesUrls
+//            self.additionalVideoUrl = uploadedVideoUrl
+//            completion(true)
+//        }
+//    }
+//
+//    private func uploadImage(_ image: UIImage, completion: @escaping (String?) -> Void) {
+//        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+//            print("Failed to convert image to JPEG")
+//            completion(nil)
+//            return
+//        }
+//
+//        let tempDir = FileManager.default.temporaryDirectory
+//        let tempURL = tempDir.appendingPathComponent("\(UUID().uuidString).jpg")
+//
+//        do {
+//            try imageData.write(to: tempURL)
+//            print("Image saved to temporary URL: \(tempURL)")
+//        } catch {
+//            print("Failed to save image to temporary URL: \(error)")
+//            completion(nil)
+//            return
+//        }
+//
+//        APIClient.shared.uploadMedia(fileURL: tempURL) { result in
+//            switch result {
+//            case .success(let url):
+//                print("Image uploaded successfully: \(url)")
+//                completion(url)
+//            case .failure(let error):
+//                print("Image upload failed: \(error)")
+//                completion(nil)
+//            }
+//        }
+//    }
+//}
+
+
+@available(iOS 16.0, *)
 struct ListingAddView: View {
     
     @StateObject var viewModel = ListingAddViewModel()
@@ -95,6 +405,9 @@ struct ListingAddView: View {
     @State var metreAreaString: String = ""
     
     @State var showNextView: Bool = false
+    @State var selectedMainImage: PhotosPickerItem?
+    @State var selectedAdditionalImages: [PhotosPickerItem] = []
+    @State var selectedVideo: PhotosPickerItem?
     
     var body: some View {
         ScrollView {
@@ -108,16 +421,22 @@ struct ListingAddView: View {
                 Floors()
                 Services()
                 AdditionalFeatures()
-                MainButton("Next") {
-                    showNextView = true
-                }
+                MediaUploader()
             }
             .frame(maxWidth: .infinity)
             .padding()
             NavigationLink(destination: ChooseLocationView(), isActive: $showNextView) {
                 EmptyView()
             }
+            .safeAreaInset(edge: .bottom) {
+                MainButton("Submit Listing") {
+                    viewModel.sendListings()
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical)
+            }
         }
+        
         .apply { content in
             if #available(iOS 16.0, *) {
                 content.toolbarRole(.editor)
@@ -134,6 +453,210 @@ struct ListingAddView: View {
                         .cornerRadius(2)
                         .animation(.easeInOut(duration: 0.3), value: filteredSections)
                 }
+            }
+        }
+    }
+    
+    @ViewBuilder func MediaUploader() -> some View {
+        VStack(alignment: .leading, spacing: 16) {
+            Text("Upload Media")
+                .font(.headline)
+                .padding(.bottom, 5)
+            
+            // MARK: - Main Image Picker
+            VStack {
+                Text("Main Image")
+                    .font(.subheadline)
+                
+                PhotosPicker(selection: $selectedMainImage, matching: .images, photoLibrary: .shared()) {
+                    if let image = viewModel.mainImage {
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 120)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .overlay(alignment: .topTrailing) {
+                                Button(action: { viewModel.mainImage = nil }) {
+                                    Image(systemName: "xmark.circle.fill")
+                                        .foregroundColor(.red)
+                                        .background(Color.white.clipShape(Circle()))
+                                }
+                                .offset(x: -10, y: 10)
+                            }
+                    } else {
+                        uploadButtonView(icon: "photo.fill", text: "Select Main Image")
+                    }
+                }
+                .onChange(of: selectedMainImage) { newItem in
+                    loadImage(from: newItem) { image in
+                        viewModel.mainImage = image
+                    }
+                }
+            }
+            
+            // MARK: - Additional Images Picker
+            VStack {
+                Text("Additional Images (\(viewModel.additionalImages.count)/5)")
+                    .font(.subheadline)
+                
+                PhotosPicker(selection: $selectedAdditionalImages, maxSelectionCount: 5, matching: .images) {
+                    uploadButtonView(icon: "photo.stack", text: "Select Additional Images")
+                }
+                .onChange(of: selectedAdditionalImages) { newItems in
+                    for item in newItems {
+                        loadImage(from: item) { image in
+                            viewModel.additionalImages.append(image)
+                        }
+                    }
+                }
+                
+                // Display selected additional images
+                if !viewModel.additionalImages.isEmpty {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            ForEach(Array(viewModel.additionalImages.enumerated()), id: \.0) { index, image in
+                                ZStack(alignment: .topTrailing) {
+                                    Image(uiImage: image)
+                                        .resizable()
+                                        .scaledToFill()
+                                        .frame(width: 80, height: 80)
+                                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                                    
+                                    Button(action: { viewModel.additionalImages.remove(at: index) }) {
+                                        Image(systemName: "xmark.circle.fill")
+                                            .foregroundColor(.red)
+                                            .background(Color.white.clipShape(Circle()))
+                                    }
+                                    .offset(x: -5, y: 5)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+            // MARK: - Video Picker
+            VStack {
+                Text("Video")
+                    .font(.subheadline)
+                
+                PhotosPicker(selection: $selectedVideo, matching: .videos) {
+                    if let videoURL = viewModel.videoURL {
+                        HStack {
+                            Image(systemName: "video.fill")
+                            Text("Video Selected")
+                                .foregroundColor(.green)
+                            Spacer()
+                            Button(action: { viewModel.videoURL = nil }) {
+                                Image(systemName: "xmark.circle.fill")
+                                    .foregroundColor(.red)
+                            }
+                        }
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+                    } else {
+                        uploadButtonView(icon: "video.fill", text: "Select Video")
+                    }
+                }
+                .onChange(of: selectedVideo) { newItem in
+                    loadVideo(from: newItem) { url in
+                        viewModel.videoURL = url
+                    }
+                }
+            }
+        }
+        .padding()
+    }
+    @ViewBuilder
+    private func uploadButtonView(icon: String, text: String) -> some View {
+        HStack {
+            Image(systemName: icon)
+            Text(text)
+        }
+        .frame(height: 50)
+        .frame(maxWidth: .infinity)
+        .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+    }
+    //    @ViewBuilder
+    //    func MediaUploader() -> some View {
+    //        VStack(alignment: .leading) {
+    //            Text("Upload Media")
+    //                .font(.headline)
+    //
+    //            // Main Image Picker
+    //            PhotosPicker(selection: $selectedMainImage, matching: .images, photoLibrary: .shared()) {
+    //                HStack {
+    //                    Image(systemName: "photo.fill")
+    //                    Text(viewModel.mainImage != nil ? "Main Image Selected" : "Select Main Image")
+    //                }
+    //                .frame(height: 50)
+    //                .frame(maxWidth: .infinity)
+    //                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+    //            }
+    //            .onChange(of: selectedMainImage) { newItem in
+    //                loadImage(from: newItem) { image in
+    //                    viewModel.mainImage = image
+    //                }
+    //            }
+    //
+    //
+    //            // Additional Images Picker
+    //            PhotosPicker(selection: $selectedAdditionalImages, maxSelectionCount: 5, matching: .images) {
+    //                HStack {
+    //                    Image(systemName: "photo.stack")
+    //                    Text(viewModel.additionalImages.isEmpty ? "Select Additional Images" : "\(viewModel.additionalImages.count) Images Selected")
+    //                }
+    //                .frame(height: 50)
+    //                .frame(maxWidth: .infinity)
+    //                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+    //            }
+    //            .onChange(of: selectedAdditionalImages) { newItems in
+    //                for item in newItems {
+    //                    loadImage(from: item) { image in
+    //                        viewModel.additionalImages.append(image)
+    //                    }
+    //                }
+    //            }
+    //
+    //
+    //            PhotosPicker(selection: $selectedVideo, matching: .videos) {
+    //                HStack {
+    //                    Image(systemName: "video.fill")
+    //                    Text(viewModel.videoURL != nil ? "Video Selected" : "Select Video")
+    //                }
+    //                .frame(height: 50)
+    //                .frame(maxWidth: .infinity)
+    //                .background(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
+    //            }
+    //            .onChange(of: selectedVideo) { newItem in
+    //                loadVideo(from: newItem) { url in
+    //                    viewModel.videoURL = url
+    //                }
+    //            }
+    //
+    //        }
+    //        .padding()
+    //    }
+    
+    // MARK: Load Image Helper
+    @available(iOS 16.0, *)
+    private func loadImage(from pickerItem: PhotosPickerItem?, completion: @escaping (UIImage) -> Void) {
+        guard let pickerItem else { return }
+        Task {
+            if let data = try? await pickerItem.loadTransferable(type: Data.self),
+               let image = UIImage(data: data) {
+                completion(image)
+            }
+        }
+    }
+    
+    // MARK: Load Video Helper
+    @available(iOS 16.0, *)
+    private func loadVideo(from pickerItem: PhotosPickerItem?, completion: @escaping (URL) -> Void) {
+        guard let pickerItem else { return }
+        Task {
+            if let url = try? await pickerItem.loadTransferable(type: URL.self) {
+                completion(url)
             }
         }
     }
@@ -1343,5 +1866,9 @@ struct ListingAddView: View {
 }
 
 #Preview {
-    ListingAddView()
+    if #available(iOS 16.0, *) {
+        ListingAddView()
+    } else {
+        // Fallback on earlier versions
+    }
 }
