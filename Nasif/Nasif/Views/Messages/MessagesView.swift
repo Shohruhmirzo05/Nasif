@@ -7,23 +7,6 @@
 
 import SwiftUI
 
-struct User: Codable, Hashable {
-    let userID: Int
-    let mobileNumber, nickname: String
-    let profilePictureURL: String
-    let createdAt: String
-    
-    enum CodingKeys: String, CodingKey {
-        case userID = "user_id"
-        case mobileNumber = "mobile_number"
-        case nickname
-        case profilePictureURL = "profile_picture_url"
-        case createdAt = "created_at"
-    }
-    
-    static let mock: User = User(userID: 0, mobileNumber: "00000000", nickname: "mock", profilePictureURL: "", createdAt: "")
-}
-
 struct Chat: Identifiable, Hashable {
     let id: Int
     let messages: [Message]

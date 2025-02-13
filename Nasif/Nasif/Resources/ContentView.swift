@@ -15,29 +15,21 @@ enum ContentScreens: Int {
 struct ContentView: View {
     @StateObject private var authVM = AuthViewModel()
     @AppStorage(AppStorageKeys.currentContent) var currentContent = ContentScreens.onboarding
-    
-    let userId: Int? = {
-        return UserDefaults.standard.integer(forKey: "userId")
-    }()
-    
+    @EnvironmentObject var profileViewModel: ProfileViewModel
+
     var body: some View {
         Group {
-//            if currentContent == .onboarding {
-//                if authVM.isAuthenticated {
-//                    TabbarView()
-//                } else {
-//                    PhoneInputView(viewModel: authVM)
-//                }
-//            } else {
+            if let userId = UserDefaults.standard.userId, userId > 0 {
                 TabbarView()
-//            }
+            } else {
+                PhoneInputView(viewModel: authVM)
+            }
         }
+        .environment(\.layoutDirection, profileViewModel.layoutDirection ?? LayoutDirection.leftToRight) // Set layout direction
         .animation(.interpolatingSpring, value: authVM.isAuthenticated)
     }
 }
 
-
 #Preview {
     ContentView()
-//        .environmentObject(LanguageManager())
 }

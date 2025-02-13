@@ -26,7 +26,6 @@ class ProfileViewModel: ObservableObject {
     }()
     
     init() {
-        //        getUserByNickName(nickName: "sofia" /*?? "N/A"*/)
         getUserById(userId: userId)
     }
     
@@ -181,9 +180,7 @@ struct ProfileView: View {
             }
             .safeAreaInset(edge: .bottom) {
                 Button {
-                    viewModel.userId = nil
-                    viewModel.user = nil
-                    viewModel.currentContent = .onboarding
+                    logout()
                 } label: {
                     HStack {
                         Spacer()
@@ -218,6 +215,12 @@ struct ProfileView: View {
             }
             .environment(\.layoutDirection, viewModel.layoutDirection ?? LayoutDirection.leftToRight)
         }
+    }
+
+    private func logout() {
+        UserDefaults.standard.userId = nil
+        viewModel.user = nil
+        viewModel.currentContent = .onboarding
     }
 }
 

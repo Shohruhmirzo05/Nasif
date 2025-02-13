@@ -8,50 +8,6 @@
 import SwiftUI
 import Combine
 
-struct UserDefaultsKeys {
-    static let accessToken = "accessToken"
-    static let userId = "userId"
-}
-
-extension UserDefaults {
-    var accessToken: String? {
-        get { string(forKey: UserDefaultsKeys.accessToken) }
-        set { set(newValue, forKey: UserDefaultsKeys.accessToken) }
-    }
-
-    var userId: Int? {
-        get { integer(forKey: UserDefaultsKeys.userId) }
-        set { set(newValue, forKey: UserDefaultsKeys.userId) }
-    }
-}
-
-struct AuthResponse: Codable {
-    let status, message: String
-    let data: AuthResponseData?
-}
-
-struct AuthResponseData: Codable {
-    let token: String?
-    let phone: String?
-    let userId: Int?
-    
-    enum CodingKeys: String, CodingKey {
-        case token, phone
-        case userId = "user_id"
-    }
-}
-
-struct SignUpResponse: Codable {
-    let message: String
-}
-
-struct RegistrationModel: Identifiable, Codable {
-    var id: String
-    var userPhoneNumber: String
-    
-    static let mock = RegistrationModel(id: UUID().uuidString, userPhoneNumber: "")
-}
-
 @MainActor
 class AuthViewModel: ObservableObject {
     @Published var otpCode: [String] = Array(repeating: "", count: 6)
@@ -93,7 +49,6 @@ class AuthViewModel: ObservableObject {
                 let response = try await APIClient.shared.callWithStatusCode(.getUserById(id: userId ?? 0), decodeTo: User.self)
                 DispatchQueue.main.async {
                     self.user = response.data
-                   
                     UserDefaults.standard.set(self.user?.userID, forKey: "userId")
                 }
             } catch {
@@ -183,6 +138,7 @@ class AuthViewModel: ObservableObject {
                 self.currentState = .success
                 self.currentContent = .main
                 self.isAuthenticated = true
+//                UserDefaults.standard.userId = response.data.authResponse?.data?.userId
             } catch {
                 currentState = .error(error.localizedDescription)
             }
