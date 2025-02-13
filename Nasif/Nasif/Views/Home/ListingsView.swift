@@ -74,6 +74,7 @@ struct ListingsView: View {
     @State var showMapView: Bool = false
     @State var showListingDetailsView: Bool = false
     @State var showAddlistingView: Bool = false
+    @State var showSearchView: Bool = false
     
     var body: some View {
         NavigationView {
@@ -82,7 +83,18 @@ struct ListingsView: View {
                     GoogleMapView(listings: viewModel.listings ?? [], userLocation: locationManager.userLocation, shouldCenterOnUserLocation: $shouldCenterOnUserLocation)
                         .frame(height: UIScreen.main.bounds.height * 0.9)
                 } else {
-                    VStack {
+                    VStack(alignment: .leading) {
+                        NavigationLink {
+                            ApartmentSearchView()
+                        } label: {
+                            Text("Search")
+                                .padding(10)
+                                .opacity(0.5)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.accent.opacity(0.1))
+                                .clipShape(RoundedRectangle(cornerRadius: 24))
+                        }
+                       
                         if let listings = viewModel.listings {
                             ForEach(listings) { listing in
                                 NavigationLink {
@@ -93,7 +105,7 @@ struct ListingsView: View {
                             }
                         }
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
             }
             .refreshable {

@@ -45,6 +45,7 @@ struct ApartmentSearchView: View {
     
     @State var areaRangeMin: String = ""
     @State var areaRangeMax: String = ""
+    @Environment(\.dismiss) var dismiss
     
     var body: some View {
         NavigationView {
@@ -71,11 +72,24 @@ struct ApartmentSearchView: View {
                 .padding(.vertical)
                 .padding(.horizontal, 24)
             }
-            .safeAreaInset(edge: .top) {
-                Text("Search")
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
+            .apply { content in
+                if #available(iOS 16.0, *) {
+                    content.toolbarRole(.editor)
+                } else {
+                    // Fallback on earlier versions
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Text("Search")
+                }
+            }
+            .safeAreaInset(edge: .bottom) {
+                MainButton("Search") {
+                    dismiss()
+                }
+                .padding(.horizontal, 24)
+                .padding(.vertical)
             }
         }
         .environment(\.layoutDirection, layoutDirection)
