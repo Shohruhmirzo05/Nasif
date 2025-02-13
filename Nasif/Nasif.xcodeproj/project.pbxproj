@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		525B79F72D5E54B600FC1E39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 525B79F22D5E54B600FC1E39 /* InfoPlist.strings */; };
+		525B79F82D5E54B600FC1E39 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 525B79F52D5E54B600FC1E39 /* InfoPlist.strings */; };
 		8C6D5C002D3A31EC00BDF131 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 8C6D5BFF2D3A31EC00BDF131 /* Kingfisher */; };
 		8CB6265F2D3C9C7600366B22 /* GoogleMapsUtils in Frameworks */ = {isa = PBXBuildFile; productRef = 8CB6265E2D3C9C7600366B22 /* GoogleMapsUtils */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		525B79F12D5E54B600FC1E39 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = InfoPlist.strings; sourceTree = "<group>"; };
+		525B79F42D5E54B600FC1E39 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		8C6D5BED2D3A31A600BDF131 /* Nasif.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nasif.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -49,9 +53,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		525B79F32D5E54B600FC1E39 /* ar.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				525B79F22D5E54B600FC1E39 /* InfoPlist.strings */,
+			);
+			path = ar.lproj;
+			sourceTree = "<group>";
+		};
+		525B79F62D5E54B600FC1E39 /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				525B79F52D5E54B600FC1E39 /* InfoPlist.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
 		8C6D5BE42D3A31A600BDF131 = {
 			isa = PBXGroup;
 			children = (
+				525B79F32D5E54B600FC1E39 /* ar.lproj */,
+				525B79F62D5E54B600FC1E39 /* en.lproj */,
 				8C6D5BEF2D3A31A600BDF131 /* Nasif */,
 				8C6D5BEE2D3A31A600BDF131 /* Products */,
 			);
@@ -136,6 +158,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				525B79F72D5E54B600FC1E39 /* InfoPlist.strings in Resources */,
+				525B79F82D5E54B600FC1E39 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -150,6 +174,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		525B79F22D5E54B600FC1E39 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				525B79F12D5E54B600FC1E39 /* ar */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		525B79F52D5E54B600FC1E39 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				525B79F42D5E54B600FC1E39 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		8C6D5BF92D3A31A600BDF131 /* Debug */ = {
@@ -286,7 +329,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Nasif/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nasif;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show you nearby places.";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location to show you nearby places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -326,7 +369,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Nasif/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Nasif;
-				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to show you nearby places.";
 				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location to show you nearby places.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
