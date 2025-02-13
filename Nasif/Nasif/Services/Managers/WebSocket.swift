@@ -12,6 +12,9 @@ class WebSocketManager {
     var webSocket: URLSessionWebSocketTask?
     var onMessageReceived: ((Message) -> Void)?
     
+    private var isConnected = false
+    private var reconnectTimer: Timer?
+    
     private init() {}
     
     func connect() {
@@ -28,9 +31,22 @@ class WebSocketManager {
         print("WebSocket state after connection attempt: \(String(describing: webSocket?.state))")
 
         listenForMessages()
+        isConnected = true
+        setupPingTimer()
         print("websocket connected successfully: \(url)")
         print("WebSocket state: \(String(describing: webSocket?.state))")
     }
+    
+    private func setupPingTimer() {
+            // Send ping every 30 seconds to keep connection alive
+            reconnectTimer = Timer.scheduledTimer(withTimeInterval: 30, repeats: true) { [weak self] _ in
+                self?.sendPing()
+            }
+        }
+    private func sendPing() {
+            let pingMessage = ["type": "ping"]
+            sendMessage(pingMessage)
+        }
     
     func receiveMessages() {
         webSocket?.receive { result in
@@ -53,37 +69,87 @@ class WebSocketManager {
     }
     
     func listenForMessages() {
-        Task {
-            while true {
-                do {
-                    guard let webSocket = self.webSocket, webSocket.state == .running else {
-                        print("WebSocket is closed or not open, attempting to reconnect.")
-                        self.connect()
-                        continue
-                    }
-                    
-                    let message = try await webSocket.receive()
-                    switch message {
-                    case .data(let data):
-                        if let decodedMessage = try? JSONDecoder().decode(Message.self, from: data) {
-                            DispatchQueue.main.async {
-                                self.onMessageReceived?(decodedMessage)
-                            }
-                        }
-                    case .string(_):
-                        break
-//                    case .data(let data):
-//                        print("No message received")
-                    @unknown default:
-                        break
-                    }
-                } catch {
-                    print("WebSocket receive error:", error)
-                }
-            }
-        }
-    }
+          Task {
+              while isConnected {
+                  do {
+                      guard let webSocket = self.webSocket else { break }
+                      
+                      let message = try await webSocket.receive()
+                      switch message {
+                      case .data(let data):
+                          handleReceivedData(data)
+                      case .string(let string):
+                          if let data = string.data(using: .utf8) {
+                              handleReceivedData(data)
+                          }
+                      @unknown default:
+                          break
+                      }
+                  } catch {
+                      handleDisconnection(error: error)
+                  }
+              }
+          }
+      }
     
+    private func handleReceivedData(_ data: Data) {
+         do {
+             let message = try JSONDecoder().decode(Message.self, from: data)
+             DispatchQueue.main.async {
+                 self.onMessageReceived?(message)
+             }
+         } catch {
+             print("Error decoding message: \(error)")
+         }
+     }
+     
+     private func handleDisconnection(error: Error) {
+         isConnected = false
+         print("WebSocket disconnected: \(error)")
+         
+         // Attempt to reconnect after 5 seconds
+         DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+             self?.connect()
+         }
+     }
+     
+//    func listenForMessages() {
+//            Task {
+//                while true {
+//                    do {
+//                        guard let webSocket = self.webSocket, webSocket.state == .running else {
+//                            print("WebSocket is closed or not open, attempting to reconnect.")
+//                            self.connect()
+//                            continue
+//                        }
+//                        
+//                        let message = try await webSocket.receive()
+//                        switch message {
+//                        case .data(let data):
+//                            if let decodedMessage = try? JSONDecoder().decode(Message.self, from: data) {
+//                                DispatchQueue.main.async {
+//                                    // Check if the message is for a group or a personal chat
+//                                    if let groupId = decodedMessage.groupID {
+//                                        // Handle group message
+//                                        self.onMessageReceived?(decodedMessage)
+//                                    } else {
+//                                        // Handle personal message
+//                                        self.onMessageReceived?(decodedMessage)
+//                                    }
+//                                }
+//                            }
+//                        case .string(_):
+//                            break
+//                        @unknown default:
+//                            break
+//                        }
+//                    } catch {
+//                        print("WebSocket receive error:", error)
+//                    }
+//                }
+//            }
+//        }
+
     func sendMessage(_ message: [String: Any]) {
         guard let webSocket = webSocket else {
             print("WebSocket instance is nil.")
@@ -109,17 +175,31 @@ class WebSocketManager {
         }
     }
     
-    func sendTextMessage(_ messageContent: String, senderId: Int, recipientId: Int) {
-        let messageDict: [String: Any] = [
-            "sender_id": senderId,
-            "recipient_id": recipientId,
-            "message_content": messageContent,
-            "media_type": "text",
-            "created_at": getCurrentTimestamp()
-        ]
-        
-        sendMessage(messageDict)
-    }
+    func sendTextMessage(_ messageContent: String, senderId: Int, recipientId: Int, groupId: Int?) {
+          let message: [String: Any] = [
+              "type": "message",
+              "sender_id": senderId,
+              "recipient_id": recipientId,
+              "group_id": groupId as Any,
+              "message_content": messageContent,
+              "media_type": "text",
+              "created_at": getCurrentTimestamp()
+          ]
+          
+          sendMessage(message)
+      }
+//    func sendTextMessage(_ messageContent: String, senderId: Int, recipientId: Int, groupId: Int?) {
+//          let messageDict: [String: Any] = [
+//              "sender_id": senderId,
+//              "recipient_id": recipientId,
+//              "message_content": messageContent,
+//              "media_type": "text",
+//              "group_id": groupId ?? NSNull(), // Include group ID if available
+//              "created_at": getCurrentTimestamp()
+//          ]
+//          
+//          sendMessage(messageDict)
+//      }
     
     private func getCurrentTimestamp() -> String {
         let formatter = DateFormatter()
@@ -127,7 +207,7 @@ class WebSocketManager {
         return formatter.string(from: Date())
     }
     
-    func sendMediaMessage(mediaData: Data, senderId: Int, recipientId: Int, mediaType: String, mediaName: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func sendMediaMessage(mediaData: Data, senderId: Int, recipientId: Int, mediaType: String, mediaName: String, groupId: Int?, completion: @escaping (Result<String, Error>) -> Void) {
         var request = URLRequest(url: URL(string: "https://appnasif.com/appnasif_api/ws/upload_media")!)
         request.httpMethod = "POST"
         
@@ -164,7 +244,7 @@ class WebSocketManager {
                     completion(.success(mediaURL))
                     
                     // Now send the uploaded media URL over WebSocket
-                    self.sendTextMessage("Sent media: \(mediaURL)", senderId: senderId, recipientId: recipientId)
+                    self.sendTextMessage("Sent media: \(mediaURL)", senderId: senderId, recipientId: recipientId, groupId: groupId)
                 } else {
                     completion(.failure(NSError(domain: "InvalidResponse", code: -1, userInfo: nil)))
                 }
@@ -220,113 +300,5 @@ class WebSocketManager {
         webSocket.cancel(with: .goingAway, reason: nil)
         print("WebSocket connection closed.")
     }
-
-//    func closeConnection() {
-//        webSocket?.cancel(with: .goingAway, reason: nil)
-//    }
 }
 
-
-//class WebSocketManager {
-//    static let shared = WebSocketManager()
-//    var webSocket: URLSessionWebSocketTask?
-//    var onMessageReceived: ((Message) -> Void)?
-//    var isConnected: Bool = false
-//    
-//    private init() {}
-//    
-//    func connect() {
-//        guard let url = URL(string: "wss://appnasif.com:8081/ws") else {
-//            print("Invalid URL")
-//            return
-//        }
-//        
-//        let request = URLRequest(url: url)
-//        webSocket = URLSession.shared.webSocketTask(with: request)
-//        
-//        webSocket?.resume()
-//        isConnected = true
-//        receiveMessages()
-//        
-//        webSocket?.receive { [weak self] result in
-//            switch result {
-//            case .success(let message):
-//                self?.handleReceivedMessage(message)
-//            case .failure(let error):
-//                self?.isConnected = false
-//                print("Error receiving message: \(error.localizedDescription). Retrying...")
-//                DispatchQueue.global().asyncAfter(deadline: .now() + 3) {
-//                    self?.connect()
-//                }
-//            }
-//        }
-//    }
-//    
-//    func receiveMessages() {
-//        webSocket?.receive { result in
-//            switch result {
-//            case .success(let message):
-//                switch message {
-//                case .string(let text):
-//                    print("Received text message: \(text)")
-//                case .data(let data):
-//                    print("Received data message: \(data)")
-//                @unknown default:
-//                    print("Unknown message type")
-//                }
-//                self.receiveMessages()
-//                
-//            case .failure(let error):
-//                print("Error receiving message: \(error.localizedDescription)")
-//            }
-//        }
-//    }
-//
-//    func handleReceivedMessage(_ message: URLSessionWebSocketTask.Message) {
-//        switch message {
-//        case .string(let text):
-//            print("Received text message: \(text)")
-//        case .data(let data):
-//            print("Received data message: \(data)")
-//            // Process the incoming data here
-//            if let decodedMessage = try? JSONDecoder().decode(Message.self, from: data) {
-//                DispatchQueue.main.async {
-//                    self.onMessageReceived?(decodedMessage)
-//                }
-//            }
-//        @unknown default:
-//            print("Unknown message type")
-//        }
-//    }
-//
-//    func sendMessage(_ message: [String: Any]) {
-//        do {
-//            let data = try JSONSerialization.data(withJSONObject: message, options: [])
-//            let webSocketMessage = URLSessionWebSocketTask.Message.data(data)
-//            webSocket?.send(webSocketMessage) { error in
-//                if let error = error {
-//                    print("Error sending message: \(error.localizedDescription)")
-//                }
-//            }
-//        } catch {
-//            print("Error serializing message: \(error)")
-//        }
-//    }
-//
-//    func sendTextMessage(_ message: String, toRecipientId recipientId: Int) {
-//        let messageDict: [String: Any] = [
-//            "sender_id": 1,  // Example sender ID (use actual sender ID)
-//            "recipient_id": recipientId,
-//            "message_content": message,
-//            "media_type": "text",
-//            "created_at": Date().description
-//        ]
-//        
-//        sendMessage(messageDict)
-//    }
-//
-//    func closeConnection() {
-//        webSocket?.cancel(with: .goingAway, reason: nil)
-//        isConnected = false
-//    }
-//}

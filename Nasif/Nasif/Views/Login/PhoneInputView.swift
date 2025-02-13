@@ -30,7 +30,7 @@ struct PhoneInputView: View {
                         }
                     
                     HStack {
-                        Text("+966")
+                        Text("+91")
                         TextField("Enter phone number", text: $viewModel.phoneNumber)
                             .keyboardType(.numberPad)
                     }

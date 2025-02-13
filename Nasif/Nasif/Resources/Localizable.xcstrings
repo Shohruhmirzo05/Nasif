@@ -24,22 +24,43 @@
 
     },
     "%lld messages" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدد الرسائل %lld"
+          }
+        }
+      }
     },
     "+" : {
 
     },
-    "+966" : {
+    "+91" : {
 
     },
     "00:%@" : {
 
     },
     "Additional features:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ميزات إضافية:"
+          }
+        }
+      }
     },
     "Additional Images (%lld/5)" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "صور إضافية (%lld/5)"
+          }
+        }
+      }
     },
     "Additional information:" : {
       "localizations" : {
@@ -82,19 +103,54 @@
       }
     },
     "Age of the property:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عمر العقار:"
+          }
+        }
+      }
     },
     "agricultural" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الزراعية"
+          }
+        }
+      }
     },
     "Air conditioners" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مكيفات الهواء"
+          }
+        }
+      }
     },
     "apartment" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شقة"
+          }
+        }
+      }
     },
     "architecture" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بنيان"
+          }
+        }
+      }
     },
     "Area m2" : {
       "localizations" : {
@@ -107,7 +163,14 @@
       }
     },
     "Area:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منطقة:"
+          }
+        }
+      }
     },
     "Available" : {
       "localizations" : {
@@ -120,10 +183,24 @@
       }
     },
     "Balcony" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرفة"
+          }
+        }
+      }
     },
     "Basement position" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "موقف الطابق السفلي"
+          }
+        }
+      }
     },
     "Bedrooms" : {
       "localizations" : {
@@ -146,10 +223,34 @@
       }
     },
     "break" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استراحة"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يلغي"
+          }
+        }
+      }
     },
     "Chats" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الدردشات"
+          }
+        }
+      }
     },
     "Choose language" : {
       "localizations" : {
@@ -172,22 +273,64 @@
       }
     },
     "Code sent to +%@" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم إرسال الرمز إلى +%@"
+          }
+        }
+      }
     },
     "commercial" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تجاري"
+          }
+        }
+      }
     },
     "Complete Sign Up" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أكمل التسجيل"
+          }
+        }
+      }
     },
     "Complete Your Profile" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أكمل ملفك الشخصي"
+          }
+        }
+      }
     },
     "complex" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "معقد"
+          }
+        }
+      }
     },
     "Confirm" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يتأكد"
+          }
+        }
+      }
     },
     "Continue" : {
       "localizations" : {
@@ -195,6 +338,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "يكمل"
+          }
+        }
+      }
+    },
+    "Create Group" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء مجموعة"
+          }
+        }
+      }
+    },
+    "Create New Group" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إنشاء مجموعة جديدة"
           }
         }
       }
@@ -240,7 +403,14 @@
       }
     },
     "Display condition:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حالة العرض:"
+          }
+        }
+      }
     },
     "Display number" : {
       "localizations" : {
@@ -263,31 +433,94 @@
       }
     },
     "Driver's room" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غرفة السائق"
+          }
+        }
+      }
     },
     "Duplex" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دوبلكس"
+          }
+        }
+      }
     },
     "east" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرق"
+          }
+        }
+      }
     },
     "electricity" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كهرباء"
+          }
+        }
+      }
     },
     "Enter City" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل المدينة"
+          }
+        }
+      }
     },
     "Enter Country" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل البلد"
+          }
+        }
+      }
     },
     "Enter phone number" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل رقم الهاتف"
+          }
+        }
+      }
     },
     "Enter Verification Code" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل رمز التحقق"
+          }
+        }
+      }
     },
     "Error" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خطأ"
+          }
+        }
+      }
     },
     "everywhere" : {
       "localizations" : {
@@ -300,7 +533,14 @@
       }
     },
     "farm" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مزرعة"
+          }
+        }
+      }
     },
     "Features:" : {
       "localizations" : {
@@ -323,10 +563,44 @@
       }
     },
     "Floor number:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رقم الطابق:"
+          }
+        }
+      }
     },
     "Furnished" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مفروشة"
+          }
+        }
+      }
+    },
+    "Group Details" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تفاصيل المجموعة"
+          }
+        }
+      }
+    },
+    "Group Name" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسم المجموعة"
+          }
+        }
+      }
     },
     "Halls and councils" : {
       "localizations" : {
@@ -359,10 +633,24 @@
       }
     },
     "Independent" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مستقل"
+          }
+        }
+      }
     },
     "Intended usage" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الاستخدام المقصود"
+          }
+        }
+      }
     },
     "Interface" : {
       "localizations" : {
@@ -375,13 +663,33 @@
       }
     },
     "kitchen" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مطبخ"
+          }
+        }
+      }
     },
     "land" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أرض"
+          }
+        }
+      }
     },
     "Latitude: %lf, Longitude: %lf" : {
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خط العرض: %1$lf، خط الطول: %2$lf"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -391,7 +699,14 @@
       }
     },
     "Laundry room" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غرفة غسيل"
+          }
+        }
+      }
     },
     "listings" : {
       "localizations" : {
@@ -424,13 +739,34 @@
       }
     },
     "m" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "م"
+          }
+        }
+      }
     },
     "Maid's room" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غرفة خادمة"
+          }
+        }
+      }
     },
     "Main Image" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصورة الرئيسية"
+          }
+        }
+      }
     },
     "Message View" : {
       "extractionState" : "stale",
@@ -464,7 +800,14 @@
       }
     },
     "Monsters" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الوحوش"
+          }
+        }
+      }
     },
     "Neighborhood" : {
       "localizations" : {
@@ -477,10 +820,24 @@
       }
     },
     "New offer" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض جديد"
+          }
+        }
+      }
     },
     "Nickname" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "كنية"
+          }
+        }
+      }
     },
     "NickName" : {
       "extractionState" : "stale",
@@ -494,13 +851,34 @@
       }
     },
     "north" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شمال"
+          }
+        }
+      }
     },
     "Number of bathrooms:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدد الحمامات:"
+          }
+        }
+      }
     },
     "Number of bedrooms:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدد غرف النوم:"
+          }
+        }
+      }
     },
     "Number of floors" : {
       "localizations" : {
@@ -513,10 +891,24 @@
       }
     },
     "Number of floors:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدد الطوابق:"
+          }
+        }
+      }
     },
     "Number of halls and sitting areas:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدد القاعات ومناطق الجلوس:"
+          }
+        }
+      }
     },
     "Number of streets" : {
       "localizations" : {
@@ -539,13 +931,34 @@
       }
     },
     "OK" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نعم"
+          }
+        }
+      }
     },
     "Optical fiber" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الألياف الضوئية"
+          }
+        }
+      }
     },
     "Other" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آخر"
+          }
+        }
+      }
     },
     "Part number" : {
       "localizations" : {
@@ -558,7 +971,14 @@
       }
     },
     "phone" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هاتف"
+          }
+        }
+      }
     },
     "Phone Number" : {
       "localizations" : {
@@ -591,10 +1011,24 @@
       }
     },
     "Price:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سعر:"
+          }
+        }
+      }
     },
     "Private entrance" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مدخل خاص"
+          }
+        }
+      }
     },
     "profile" : {
       "localizations" : {
@@ -627,7 +1061,14 @@
       }
     },
     "Property type:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نوع العقار:"
+          }
+        }
+      }
     },
     "Raw" : {
 
@@ -643,7 +1084,14 @@
       }
     },
     "residential" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سكني"
+          }
+        }
+      }
     },
     "Riyal" : {
       "localizations" : {
@@ -656,10 +1104,24 @@
       }
     },
     "Sanitation" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصرف الصحي"
+          }
+        }
+      }
     },
     "SAR" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ريال سعودي"
+          }
+        }
+      }
     },
     "Save" : {
       "extractionState" : "stale",
@@ -693,16 +1155,44 @@
       }
     },
     "Selected Location:" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الموقع المحدد:"
+          }
+        }
+      }
     },
     "Send" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يرسل"
+          }
+        }
+      }
     },
     "Send to API" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إرسال إلى API"
+          }
+        }
+      }
     },
     "Seoul drainage" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصرف الصحي في سيول"
+          }
+        }
+      }
     },
     "Services:" : {
       "localizations" : {
@@ -715,7 +1205,14 @@
       }
     },
     "Show language selection" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إظهار اختيار اللغة"
+          }
+        }
+      }
     },
     "Sold" : {
       "localizations" : {
@@ -728,7 +1225,14 @@
       }
     },
     "south" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جنوب"
+          }
+        }
+      }
     },
     "Space" : {
       "localizations" : {
@@ -751,13 +1255,34 @@
       }
     },
     "Studio" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استوديو"
+          }
+        }
+      }
     },
     "Submit Listing" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إرسال القائمة"
+          }
+        }
+      }
     },
     "surface" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سطح"
+          }
+        }
+      }
     },
     "Toilets" : {
       "localizations" : {
@@ -770,13 +1295,34 @@
       }
     },
     "Townhouse" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاون هاوس"
+          }
+        }
+      }
     },
     "Type a message..." : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اكتب رسالة..."
+          }
+        }
+      }
     },
     "Upload Media" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحميل الوسائط"
+          }
+        }
+      }
     },
     "Usage" : {
       "localizations" : {
@@ -799,13 +1345,34 @@
       }
     },
     "Video" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فيديو"
+          }
+        }
+      }
     },
     "Video Selected" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم تحديد الفيديو"
+          }
+        }
+      }
     },
     "villa" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فيلا"
+          }
+        }
+      }
     },
     "Villa type" : {
       "localizations" : {
@@ -818,13 +1385,34 @@
       }
     },
     "Villa Type" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نوع الفيلا"
+          }
+        }
+      }
     },
     "waters" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مياه"
+          }
+        }
+      }
     },
     "west" : {
-
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الغرب"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
