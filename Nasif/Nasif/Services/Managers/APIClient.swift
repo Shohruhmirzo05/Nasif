@@ -83,6 +83,7 @@ class APIClient {
             services: [String]? = nil,
             extraFeatures: [String]? = nil
         )
+        case searchListings(city: String)
 
         
         fileprivate var url: URL {
@@ -138,13 +139,17 @@ class APIClient {
                 components.path.append("auth/verify.php")
             case .signUp:
                 components.path.append("auth/signup.php")
+                
+            case .searchListings(let city):
+                 components.path.append("search.php")
+                 components.queryItems = [URLQueryItem(name: "city", value: city)]
             }
             return components.url!
         }
         
         fileprivate var method: HTTPMethod {
             switch self {
-            case .getListings, .getlistingById, .getAllMessages, .getMessagesByGroupId, .getMessagesById, .getMessagesByUserId, .getUserByNickname, .getUserById, .getGroups:
+            case .getListings, .getlistingById, .getAllMessages, .getMessagesByGroupId, .getMessagesById, .getMessagesByUserId, .getUserByNickname, .getUserById, .getGroups, .searchListings:
                 return .get
             default:
                 return .post

@@ -24,6 +24,10 @@ class ListingsViewModel: ObservableObject {
     @Published var listing: Listing?
     @Published var isListingLoading: Bool = false
     
+    @Published var cityName: String = ""
+    @Published var searchLoading: Bool = false
+    @Published var searchedListings: [Listing] = []
+    
     init() {
         getListings()
     }
@@ -52,6 +56,27 @@ class ListingsViewModel: ObservableObject {
             let response = try await APIClient.shared.callWithStatusCode(.getlistingById(listingID: listingID ?? 0), decodeTo: Listing.self)
             DispatchQueue.main.async {
                 self.listing = response.data
+            }
+        }
+    }
+    
+    func searchByCityName(cityName: String, onComplete: @escaping () -> Void) {
+        searchLoading = true
+        Task {
+            do {
+                let response = try await APIClient.shared.callWithStatusCode(.searchListings(city: cityName), decodeTo: [Listing].self)
+                DispatchQueue.main.async {
+                    self.searchLoading = false
+                    self.listings = response.data
+                    self.searchedListings = response.data
+                    print("success in getting searched city \(self.listings ?? [])")
+                    if !self.searchedListings.isEmpty {
+                        onComplete()
+                    }
+                }
+            } catch {
+                self.searchLoading = false
+                print("error in search by cityname")
             }
         }
     }
@@ -85,7 +110,8 @@ struct ListingsView: View {
                 } else {
                     VStack(alignment: .leading) {
                         NavigationLink {
-                            ApartmentSearchView()
+                            ApartmentSearchView() {
+                            }
                         } label: {
                             Text("Search")
                                 .padding(10)
@@ -94,16 +120,21 @@ struct ListingsView: View {
                                 .background(Color.accent.opacity(0.1))
                                 .clipShape(RoundedRectangle(cornerRadius: 24))
                         }
-                       
-                        if let listings = viewModel.listings {
-                            ForEach(listings) { listing in
-                                NavigationLink {
-                                    ListingDetailsView(listing: listing)
-                                } label: {
-                                    ApartmentListingCardView(listing: listing)
-                                }
+                        let productsToDisplay = viewModel.searchedListings.isEmpty ? viewModel.listings : viewModel.searchedListings
+                        ForEach(productsToDisplay ?? []) { listing in
+                            NavigationLink {
+                                ListingDetailsView(listing: listing)
+                            } label: {
+                                ApartmentListingCardView(listing: listing)
                             }
                         }
+//                        ForEach(viewModel.listings ?? []) { listing in
+//                            NavigationLink {
+//                                ListingDetailsView(listing: listing)
+//                            } label: {
+//                                ApartmentListingCardView(listing: listing)
+//                            }
+//                        }
                     }
                     .padding(.horizontal)
                 }
@@ -120,8 +151,11 @@ struct ListingsView: View {
                     .animation(.easeInOut, value: selectedTab)
                     .transition(.move(edge: .leading))
             }
-            
-            
+        }
+        .onAppear {
+            if !viewModel.searchedListings.isEmpty {
+                viewModel.listings?.removeAll()
+            }
         }
     }
     

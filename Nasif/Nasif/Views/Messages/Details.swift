@@ -20,9 +20,9 @@ struct MessageDetails: View {
             ScrollViewReader { proxy in
                 ScrollView {
                     LazyVStack {
-                        ForEach(messages, id: \.id) { message in
+                        ForEach(messages, id: \.self) { message in
                             MessageRow(message: message)
-                                .id(message.id)
+                                .id(message.id ?? 1)
                                 .padding(.horizontal)
                         }
                     }

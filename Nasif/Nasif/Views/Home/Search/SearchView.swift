@@ -13,10 +13,8 @@ struct ApartmentSearchView: View {
     @State var searchCity: String = ""
     @State var searchNeighbourhood: String = ""
     
-    
     @State var layoutDirection: LayoutDirection = .leftToRight
     
-    // Property Types
     var propertyTypes: [String] = ["land", "apartment", "house", "office", "shop", "firm", "other"]
     @State var selectedPropertyType: String = ""
     
@@ -24,7 +22,6 @@ struct ApartmentSearchView: View {
         selectedPropertyType = propertyType
     }
     
-    // Interfaces
     var interfaces: [String] = ["South", "West", "North", "East"]
     @State var selectedInterface: String = ""
     
@@ -32,7 +29,6 @@ struct ApartmentSearchView: View {
         selectedInterface = interface
     }
     
-    // Number of street
     var numberOfStreet: [Int] = [1, 2, 3, 4]
     @State var selectedNumberOfStreet: Int = 0
     
@@ -46,6 +42,9 @@ struct ApartmentSearchView: View {
     @State var areaRangeMin: String = ""
     @State var areaRangeMax: String = ""
     @Environment(\.dismiss) var dismiss
+    
+    @StateObject var viewModel = ListingsViewModel()
+    var onDismiss: () -> Void
     
     var body: some View {
         NavigationView {
@@ -86,7 +85,10 @@ struct ApartmentSearchView: View {
             }
             .safeAreaInset(edge: .bottom) {
                 MainButton("Search") {
-                    dismiss()
+                    viewModel.searchByCityName(cityName: viewModel.cityName) {
+                        dismiss()
+                        onDismiss()
+                    }
                 }
                 .padding(.horizontal, 24)
                 .padding(.vertical)
@@ -110,15 +112,21 @@ struct ApartmentSearchView: View {
                     .clipShape(.rect(cornerRadius: 10))
                     .foregroundColor(.black)
             }
-            TextField("City", text: $searchCity)
-                .font(.abel(size: 15))
-                .frame(maxWidth: .infinity)
-                .padding(10)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.gray.opacity(0.5), lineWidth: 1)
-                }
-                .foregroundColor(.black)
+            VStack(alignment: .leading) {
+                TextField("City", text: $viewModel.cityName)
+                    .font(.abel(size: 15))
+                    .frame(maxWidth: .infinity)
+                    .padding(10)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.gray.opacity(0.5), lineWidth: 1)
+                    }
+                    .foregroundColor(.black)
+                Text("You need to enter city name!")
+                    .font(.abel(size: 10))
+                    .foregroundStyle(.red)
+                    .opacity(0.6)
+            }
             VStack(alignment: .leading, spacing: 8) {
                 Text("Neighborhood")
                     .font(.abel(size: 15))
@@ -326,5 +334,5 @@ struct ApartmentSearchView: View {
 }
 
 #Preview {
-    ApartmentSearchView()
+    ApartmentSearchView() {}
 }
